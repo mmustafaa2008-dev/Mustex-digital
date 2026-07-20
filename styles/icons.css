@@ -1,0 +1,53 @@
+/*
+  Icon system utilities — hover / state hooks for Lucide icons.
+  Pair with createIconProps() data attributes.
+*/
+
+.mustex-icon {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  transition:
+    color var(--duration-fast) var(--ease-standard),
+    opacity var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+}
+
+.mustex-icon[data-icon-state="disabled"] {
+  pointer-events: none;
+}
+
+/* Hover behaviors (parent interactive elements can also target these) */
+.mustex-icon[data-icon-hover="tint"]:hover,
+:hover > .mustex-icon[data-icon-hover="tint"],
+:focus-visible > .mustex-icon[data-icon-hover="tint"] {
+  color: var(--ds-primary-text);
+}
+
+.mustex-icon[data-icon-hover="scale"]:hover,
+:hover > .mustex-icon[data-icon-hover="scale"],
+:focus-visible > .mustex-icon[data-icon-hover="scale"] {
+  transform: scale(1.02);
+}
+
+.mustex-icon[data-icon-hover="emphasize"]:hover,
+:hover > .mustex-icon[data-icon-hover="emphasize"],
+:focus-visible > .mustex-icon[data-icon-hover="emphasize"] {
+  color: var(--ds-primary-text);
+  transform: scale(1.02);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mustex-icon {
+    transition: color var(--duration-fastest) linear;
+  }
+
+  .mustex-icon[data-icon-hover="scale"]:hover,
+  :hover > .mustex-icon[data-icon-hover="scale"],
+  :focus-visible > .mustex-icon[data-icon-hover="scale"],
+  .mustex-icon[data-icon-hover="emphasize"]:hover,
+  :hover > .mustex-icon[data-icon-hover="emphasize"],
+  :focus-visible > .mustex-icon[data-icon-hover="emphasize"] {
+    transform: none;
+  }
+}

@@ -1,0 +1,47 @@
+export type Nullable<T> = T | null;
+
+export type Optional<T> = T | undefined;
+
+export type {
+  CompanyContact,
+  CompanyContent,
+  HeroContent,
+  WhyChooseContent,
+  ContentAdvantage,
+  ContentCta,
+  ContentId,
+  ContentLink,
+  ContentSlug,
+  ContentStat,
+  ContentValue,
+  FaqContent,
+  FaqItemContent,
+  FooterContent,
+  FooterLinkGroupContent,
+  FooterNewsletterContent,
+  IndustriesContent,
+  IndustryContent,
+  MegaMenuColumnContent,
+  MegaMenuContent,
+  NavDropdownContent,
+  NavItemContent,
+  NavLinkContent,
+  NavigationContent,
+  NavigationLabels,
+  ProcessContent,
+  ProcessStepContent,
+  ProjectContent,
+  ProjectsContent,
+  SectionIntro,
+  ServiceContent,
+  ServicesContent,
+  SocialContent,
+  SocialLinkContent,
+  SocialPlatformId,
+  TechnologiesContent,
+  TechnologyCategoryContent,
+  TechnologyCategoryId,
+  TechnologyContent,
+} from "./content";
+
+export { isMegaMenuContent, isNavDropdownContent } from "./content";

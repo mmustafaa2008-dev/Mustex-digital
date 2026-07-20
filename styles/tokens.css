@@ -1,0 +1,520 @@
+/*
+  Mustex Digital — CSS design tokens
+  Mirrors lib/design-tokens (TypeScript source of truth).
+
+  Naming:
+  - --ds-*     raw design-system values
+  - --*        shadcn / semantic bridges
+*/
+
+:root {
+  /* ——— Colors (raw) ——— */
+  --ds-primary: #2563eb;
+  --ds-primary-foreground: #ffffff;
+  --ds-primary-text: #60a5fa;
+  --ds-primary-soft: #b4c5ff;
+  --ds-primary-muted: rgb(37 99 235 / 0.14);
+  --ds-primary-glow: rgb(37 99 235 / 0.35);
+
+  --ds-secondary: #60a5fa;
+  --ds-secondary-foreground: #001c39;
+  --ds-secondary-text: #93c5fd;
+  --ds-secondary-soft: #a4c9ff;
+  --ds-secondary-muted: rgb(96 165 250 / 0.14);
+
+  --ds-accent: #adc6ff;
+  --ds-accent-foreground: #002a78;
+  --ds-accent-text: #c7d7ff;
+  --ds-accent-muted: rgb(173 198 255 / 0.16);
+
+  --ds-surface: #0f172a;
+  --ds-surface-elevated: #1b1f2e;
+  --ds-surface-sunken: #0a0d1c;
+  --ds-surface-overlay: rgb(15 23 42 / 0.8);
+  --ds-surface-bright: #303444;
+
+  --ds-background: #050816;
+  --ds-background-subtle: #0f1321;
+  --ds-background-inverse: #e8eaed;
+
+  --ds-foreground: #e8eaed;
+  --ds-foreground-subtle: #c3c6d7;
+  --ds-foreground-muted: #a1a1aa;
+  --ds-foreground-inverse: #0b0f10;
+
+  --ds-border-subtle: rgb(255 255 255 / 0.1);
+  --ds-border: rgb(255 255 255 / 0.36);
+  --ds-border-strong: #8d90a0;
+  --ds-border-focus: #60a5fa;
+
+  --ds-muted: #1b1f2e;
+  --ds-muted-foreground: #a1a1aa;
+
+  --ds-success: #34d399;
+  --ds-success-foreground: #022c22;
+  --ds-success-text: #6ee7b7;
+  --ds-success-muted: rgb(52 211 153 / 0.16);
+  --ds-success-border: #34d399;
+
+  --ds-warning: #fbbf24;
+  --ds-warning-foreground: #422006;
+  --ds-warning-text: #fcd34d;
+  --ds-warning-muted: rgb(251 191 36 / 0.16);
+  --ds-warning-border: #fbbf24;
+
+  --ds-error: #ffb4ab;
+  --ds-error-foreground: #690005;
+  --ds-error-strong: #f87171;
+  --ds-error-text: #fca5a5;
+  --ds-error-muted: rgb(255 180 171 / 0.16);
+  --ds-error-border: #f87171;
+
+  --ds-focus-ring: rgb(96 165 250 / 0.55);
+  --ds-focus-ring-offset: #050816;
+  --ds-focus-width: 2px;
+  --ds-focus-offset: 2px;
+
+  /* Convenient aliases */
+  --color-primary: var(--ds-primary);
+  --color-primary-foreground: var(--ds-primary-foreground);
+  --color-primary-text: var(--ds-primary-text);
+  --color-primary-soft: var(--ds-primary-soft);
+  --color-primary-muted: var(--ds-primary-muted);
+  --color-primary-glow: var(--ds-primary-glow);
+  --color-secondary: var(--ds-secondary);
+  --color-secondary-foreground: var(--ds-secondary-foreground);
+  --color-secondary-text: var(--ds-secondary-text);
+  --color-secondary-soft: var(--ds-secondary-soft);
+  --color-accent: var(--ds-accent);
+  --color-accent-foreground: var(--ds-accent-foreground);
+  --color-accent-text: var(--ds-accent-text);
+  --color-surface: var(--ds-surface);
+  --color-surface-elevated: var(--ds-surface-elevated);
+  --color-surface-sunken: var(--ds-surface-sunken);
+  --color-surface-overlay: var(--ds-surface-overlay);
+  --color-surface-bright: var(--ds-surface-bright);
+  --color-background: var(--ds-background);
+  --color-background-subtle: var(--ds-background-subtle);
+  --color-foreground: var(--ds-foreground);
+  --color-foreground-subtle: var(--ds-foreground-subtle);
+  --color-foreground-muted: var(--ds-foreground-muted);
+  --color-border: var(--ds-border);
+  --color-border-strong: var(--ds-border-strong);
+  --color-border-subtle: var(--ds-border-subtle);
+  --color-border-focus: var(--ds-border-focus);
+  --color-muted: var(--ds-muted);
+  --color-muted-foreground: var(--ds-muted-foreground);
+  --color-success: var(--ds-success);
+  --color-success-foreground: var(--ds-success-foreground);
+  --color-success-text: var(--ds-success-text);
+  --color-warning: var(--ds-warning);
+  --color-warning-foreground: var(--ds-warning-foreground);
+  --color-warning-text: var(--ds-warning-text);
+  --color-error: var(--ds-error);
+  --color-error-foreground: var(--ds-error-foreground);
+  --color-error-strong: var(--ds-error-strong);
+  --color-error-text: var(--ds-error-text);
+
+  /* shadcn semantic bridges */
+  --background: var(--ds-background);
+  --foreground: var(--ds-foreground);
+  --card: var(--ds-surface);
+  --card-foreground: var(--ds-foreground);
+  --popover: var(--ds-surface-elevated);
+  --popover-foreground: var(--ds-foreground);
+  --primary: var(--ds-primary);
+  --primary-foreground: var(--ds-primary-foreground);
+  --secondary: var(--ds-surface-elevated);
+  --secondary-foreground: var(--ds-foreground);
+  --muted: var(--ds-muted);
+  --muted-foreground: var(--ds-muted-foreground);
+  --accent: var(--ds-surface-bright);
+  --accent-foreground: var(--ds-foreground);
+  --destructive: var(--ds-error-strong);
+  --border: var(--ds-border);
+  --input: var(--ds-border);
+  --ring: var(--ds-border-focus);
+  --radius: 0.5rem;
+
+  --sidebar: var(--ds-surface);
+  --sidebar-foreground: var(--ds-foreground);
+  --sidebar-primary: var(--ds-primary);
+  --sidebar-primary-foreground: var(--ds-primary-foreground);
+  --sidebar-accent: var(--ds-surface-elevated);
+  --sidebar-accent-foreground: var(--ds-foreground);
+  --sidebar-border: var(--ds-border);
+  --sidebar-ring: var(--ds-border-focus);
+
+  --chart-1: var(--ds-primary);
+  --chart-2: var(--ds-secondary);
+  --chart-3: var(--ds-accent);
+  --chart-4: var(--ds-success);
+  --chart-5: var(--ds-foreground-muted);
+
+  /* ——— Elevation ——— */
+  --ds-elevation-0-bg: var(--ds-background);
+  --ds-elevation-1-bg: var(--ds-surface);
+  --ds-elevation-2-bg: var(--ds-surface-elevated);
+  --ds-elevation-3-bg: var(--ds-surface-elevated);
+  --ds-elevation-4-bg: var(--ds-surface-bright);
+
+  /* ——— Spacing (4px grid) ——— */
+  --ds-space-unit: 4px;
+  --ds-space-3xs: 2px;
+  --ds-space-2xs: 4px;
+  --ds-space-xs: 8px;
+  --ds-space-sm: 12px;
+  --ds-space-md: 16px;
+  --ds-space-lg: 24px;
+  --ds-space-xl: 32px;
+  --ds-space-2xl: 48px;
+  --ds-space-3xl: 64px;
+  --ds-space-4xl: 80px;
+  --ds-space-5xl: 96px;
+  --ds-space-section: 96px;
+  --ds-space-gutter: 24px;
+  --ds-space-gutter-mobile: 16px;
+  --ds-space-margin-desktop: 48px;
+  --ds-space-margin-mobile: 16px;
+
+  --space-unit: var(--ds-space-unit);
+  --space-3xs: var(--ds-space-3xs);
+  --space-2xs: var(--ds-space-2xs);
+  --space-xs: var(--ds-space-xs);
+  --space-sm: var(--ds-space-sm);
+  --space-md: var(--ds-space-md);
+  --space-lg: var(--ds-space-lg);
+  --space-xl: var(--ds-space-xl);
+  --space-2xl: var(--ds-space-2xl);
+  --space-3xl: var(--ds-space-3xl);
+  --space-4xl: var(--ds-space-4xl);
+  --space-5xl: var(--ds-space-5xl);
+  --space-section: var(--ds-space-section);
+  --space-gutter: var(--ds-space-gutter);
+
+  /* ——— Radius ——— */
+  --ds-radius-xs: 0.125rem;
+  --ds-radius-sm: 0.25rem;
+  --ds-radius-md: 0.5rem;
+  --ds-radius-lg: 0.75rem;
+  --ds-radius-xl: 1rem;
+  --ds-radius-2xl: 1.5rem;
+  --ds-radius-full: 9999px;
+
+  /* ——— Shadows (aligned to elevation) ——— */
+  --ds-shadow-xs: 0 1px 2px rgb(5 8 22 / 0.5);
+  --ds-shadow-sm: 0 4px 12px rgb(5 8 22 / 0.45);
+  --ds-shadow-md: 0 12px 32px rgb(5 8 22 / 0.5);
+  --ds-shadow-lg: 0 24px 48px rgb(5 8 22 / 0.55);
+  --ds-shadow-xl: 0 40px 80px rgb(5 8 22 / 0.6);
+  --ds-shadow-glow-sm: 0 0 24px rgb(37 99 235 / 0.18);
+  --ds-shadow-glow-md: 0 0 40px rgb(37 99 235 / 0.22);
+  --ds-shadow-glow-lg: 0 0 64px rgb(37 99 235 / 0.28);
+  --ds-shadow-focus:
+    0 0 0 2px #050816, 0 0 0 4px rgb(96 165 250 / 0.85);
+  --ds-shadow-inset: inset 0 1px 0 rgb(255 255 255 / 0.08);
+  --ds-shadow-card:
+    0 12px 32px rgb(5 8 22 / 0.5), 0 0 40px rgb(37 99 235 / 0.06);
+
+  --shadow-xs: var(--ds-shadow-xs);
+  --shadow-sm: var(--ds-shadow-sm);
+  --shadow-md: var(--ds-shadow-md);
+  --shadow-lg: var(--ds-shadow-lg);
+  --shadow-xl: var(--ds-shadow-xl);
+  --shadow-glow-sm: var(--ds-shadow-glow-sm);
+  --shadow-glow-md: var(--ds-shadow-glow-md);
+  --shadow-glow-lg: var(--ds-shadow-glow-lg);
+  --shadow-focus: var(--ds-shadow-focus);
+  --shadow-inset: var(--ds-shadow-inset);
+  --shadow-card: var(--ds-shadow-card);
+
+  /* ——— Blur ——— */
+  --ds-blur-xs: 4px;
+  --ds-blur-sm: 8px;
+  --ds-blur-md: 12px;
+  --ds-blur-lg: 20px;
+  --ds-blur-xl: 32px;
+  --ds-blur-2xl: 40px;
+  --ds-blur-3xl: 64px;
+
+  --blur-xs: var(--ds-blur-xs);
+  --blur-sm: var(--ds-blur-sm);
+  --blur-md: var(--ds-blur-md);
+  --blur-lg: var(--ds-blur-lg);
+  --blur-xl: var(--ds-blur-xl);
+  --blur-2xl: var(--ds-blur-2xl);
+  --blur-3xl: var(--ds-blur-3xl);
+
+  /* ——— Containers ——— */
+  --ds-container-xs: 20rem;
+  --ds-container-sm: 24rem;
+  --ds-container-md: 28rem;
+  --ds-container-lg: 32rem;
+  --ds-container-xl: 36rem;
+  --ds-container-2xl: 42rem;
+  --ds-container-3xl: 48rem;
+  --ds-container-4xl: 56rem;
+  --ds-container-5xl: 64rem;
+  --ds-container-6xl: 72rem;
+  --ds-container-7xl: 80rem;
+  --ds-container-prose: 40rem;
+  --ds-container-max: 80rem;
+
+  --container-max: var(--ds-container-max);
+  --container-prose: var(--ds-container-prose);
+
+  /* ——— Motion ——— */
+  --ds-duration-instant: 0ms;
+  --ds-duration-fastest: 100ms;
+  --ds-duration-faster: 150ms;
+  --ds-duration-fast: 200ms;
+  --ds-duration-normal: 300ms;
+  --ds-duration-slow: 450ms;
+  --ds-duration-slower: 600ms;
+  --ds-duration-slowest: 800ms;
+
+  --duration-instant: var(--ds-duration-instant);
+  --duration-fastest: var(--ds-duration-fastest);
+  --duration-faster: var(--ds-duration-faster);
+  --duration-fast: var(--ds-duration-fast);
+  --duration-normal: var(--ds-duration-normal);
+  --duration-slow: var(--ds-duration-slow);
+  --duration-slower: var(--ds-duration-slower);
+  --duration-slowest: var(--ds-duration-slowest);
+
+  --ds-ease-linear: linear;
+  --ds-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ds-ease-emphasized: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --ds-ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --ds-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ds-ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ds-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --ease-linear: var(--ds-ease-linear);
+  --ease-standard: var(--ds-ease-standard);
+  --ease-emphasized: var(--ds-ease-emphasized);
+  --ease-entrance: var(--ds-ease-entrance);
+  --ease-exit: var(--ds-ease-exit);
+  --ease-soft: var(--ds-ease-soft);
+  --ease-spring: var(--ds-ease-spring);
+
+  /* ——— Gradients ——— */
+  --ds-gradient-primary-sheen: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 0.12) 0%,
+    rgb(255 255 255 / 0) 55%
+  );
+  --ds-gradient-primary-solid: linear-gradient(
+    180deg,
+    #3b82f6 0%,
+    #2563eb 100%
+  );
+  --ds-gradient-primary-glow: radial-gradient(
+    ellipse at center,
+    rgb(37 99 235 / 0.28) 0%,
+    rgb(37 99 235 / 0) 70%
+  );
+  --ds-gradient-accent-wash: radial-gradient(
+    ellipse at top,
+    rgb(96 165 250 / 0.18) 0%,
+    rgb(5 8 22 / 0) 60%
+  );
+  --ds-gradient-surface-fade: linear-gradient(
+    180deg,
+    rgb(15 23 42 / 0.96) 0%,
+    rgb(5 8 22 / 0.88) 100%
+  );
+  --ds-gradient-hero-atmosphere: radial-gradient(
+    ellipse 80% 60% at 50% -10%,
+    rgb(37 99 235 / 0.22) 0%,
+    rgb(5 8 22 / 0) 55%
+  );
+  --ds-gradient-border-glass: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 0.36) 0%,
+    rgb(255 255 255 / 0.12) 100%
+  );
+  --ds-gradient-border-glow: linear-gradient(
+    135deg,
+    rgb(96 165 250 / 0.65) 0%,
+    rgb(255 255 255 / 0.16) 45%,
+    rgb(255 255 255 / 0.06) 100%
+  );
+  --ds-gradient-chart-fill: linear-gradient(
+    180deg,
+    rgb(37 99 235 / 0.18) 0%,
+    rgb(37 99 235 / 0) 100%
+  );
+  --ds-gradient-fade-to-background: linear-gradient(
+    180deg,
+    rgb(5 8 22 / 0) 0%,
+    #050816 100%
+  );
+  --ds-gradient-glass-highlight: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 0.1) 0%,
+    rgb(255 255 255 / 0) 40%
+  );
+
+  --gradient-primary-sheen: var(--ds-gradient-primary-sheen);
+  --gradient-primary-solid: var(--ds-gradient-primary-solid);
+  --gradient-primary-glow: var(--ds-gradient-primary-glow);
+  --gradient-accent-wash: var(--ds-gradient-accent-wash);
+  --gradient-surface-fade: var(--ds-gradient-surface-fade);
+  --gradient-hero-atmosphere: var(--ds-gradient-hero-atmosphere);
+  --gradient-border-glass: var(--ds-gradient-border-glass);
+  --gradient-border-glow: var(--ds-gradient-border-glow);
+  --gradient-chart-fill: var(--ds-gradient-chart-fill);
+  --gradient-fade-to-background: var(--ds-gradient-fade-to-background);
+  --gradient-glass-highlight: var(--ds-gradient-glass-highlight);
+
+  /* ——— Glassmorphism ——— */
+  --ds-glass-panel-bg: rgb(15 23 42 / 0.72);
+  --ds-glass-panel-bg-strong: rgb(15 23 42 / 0.88);
+  --ds-glass-panel-bg-soft: rgb(15 23 42 / 0.56);
+  --ds-glass-nav-bg: rgb(5 8 22 / 0.8);
+  --ds-glass-overlay-bg: rgb(5 8 22 / 0.64);
+
+  --glass-panel-bg: var(--ds-glass-panel-bg);
+  --glass-panel-bg-strong: var(--ds-glass-panel-bg-strong);
+  --glass-panel-bg-soft: var(--ds-glass-panel-bg-soft);
+  --glass-panel-blur: var(--ds-blur-lg);
+  --glass-panel-blur-strong: var(--ds-blur-2xl);
+  --glass-nav-bg: var(--ds-glass-nav-bg);
+  --glass-nav-blur: var(--ds-blur-md);
+  --glass-overlay-bg: var(--ds-glass-overlay-bg);
+  --glass-overlay-blur: var(--ds-blur-xl);
+  --glass-chip-bg: var(--ds-primary-muted);
+
+  /* ——— Typography roles ——— */
+  --ds-text-display-2xl: 4.5rem;
+  --ds-text-display-xl: 3.75rem;
+  --ds-text-display-lg: 3rem;
+  --ds-text-display-md: 2.5rem;
+  --ds-text-heading-xl: 2rem;
+  --ds-text-heading-lg: 1.75rem;
+  --ds-text-heading-md: 1.5rem;
+  --ds-text-heading-sm: 1.25rem;
+  --ds-text-body-lg: 1.125rem;
+  --ds-text-body-md: 1rem;
+  --ds-text-body-sm: 0.875rem;
+  --ds-text-caption-md: 0.875rem;
+  --ds-text-caption-sm: 0.75rem;
+  --ds-leading-display: 1.1;
+  --ds-leading-heading: 1.25;
+  --ds-leading-body: 1.6;
+  --ds-leading-caption: 1.4;
+  --ds-tracking-display: -0.04em;
+  --ds-tracking-heading: -0.02em;
+  --ds-tracking-caption: 0.04em;
+
+  --text-display-2xl: var(--ds-text-display-2xl);
+  --text-display-xl: var(--ds-text-display-xl);
+  --text-display-lg: var(--ds-text-display-lg);
+  --text-display-md: var(--ds-text-display-md);
+  --text-heading-xl: var(--ds-text-heading-xl);
+  --text-heading-lg: var(--ds-text-heading-lg);
+  --text-heading-md: var(--ds-text-heading-md);
+  --text-heading-sm: var(--ds-text-heading-sm);
+  --text-body-lg: var(--ds-text-body-lg);
+  --text-body-md: var(--ds-text-body-md);
+  --text-body-sm: var(--ds-text-body-sm);
+  --text-caption-md: var(--ds-text-caption-md);
+  --text-caption-sm: var(--ds-text-caption-sm);
+  --leading-display: var(--ds-leading-display);
+  --leading-heading: var(--ds-leading-heading);
+  --leading-body: var(--ds-leading-body);
+  --leading-caption: var(--ds-leading-caption);
+  --tracking-display: var(--ds-tracking-display);
+  --tracking-heading: var(--ds-tracking-heading);
+  --tracking-caption: var(--ds-tracking-caption);
+
+  /* Theme marker — dark is brand default on :root */
+  color-scheme: dark;
+}
+
+/*
+  Light theme — future-ready.
+  Activate with <html class="light"> (or data-theme="light").
+*/
+.light,
+[data-theme="light"] {
+  color-scheme: light;
+
+  --ds-primary: #2563eb;
+  --ds-primary-foreground: #ffffff;
+  --ds-primary-text: #1d4ed8;
+  --ds-primary-soft: #3b82f6;
+  --ds-primary-muted: rgb(37 99 235 / 0.1);
+  --ds-primary-glow: rgb(37 99 235 / 0.2);
+
+  --ds-secondary: #2563eb;
+  --ds-secondary-foreground: #ffffff;
+  --ds-secondary-text: #1e40af;
+  --ds-secondary-soft: #60a5fa;
+  --ds-secondary-muted: rgb(37 99 235 / 0.1);
+
+  --ds-accent: #1d4ed8;
+  --ds-accent-foreground: #ffffff;
+  --ds-accent-text: #1e3a8a;
+  --ds-accent-muted: rgb(29 78 216 / 0.1);
+
+  --ds-surface: #ffffff;
+  --ds-surface-elevated: #f8fafc;
+  --ds-surface-sunken: #f1f5f9;
+  --ds-surface-overlay: rgb(255 255 255 / 0.85);
+  --ds-surface-bright: #e2e8f0;
+
+  --ds-background: #f8fafc;
+  --ds-background-subtle: #ffffff;
+  --ds-background-inverse: #0b0f10;
+
+  --ds-foreground: #0f172a;
+  --ds-foreground-subtle: #334155;
+  --ds-foreground-muted: #64748b;
+  --ds-foreground-inverse: #f8fafc;
+
+  --ds-border-subtle: rgb(15 23 42 / 0.08);
+  --ds-border: rgb(15 23 42 / 0.18);
+  --ds-border-strong: #64748b;
+  --ds-border-focus: #2563eb;
+
+  --ds-muted: #f1f5f9;
+  --ds-muted-foreground: #64748b;
+
+  --ds-success: #059669;
+  --ds-success-foreground: #ffffff;
+  --ds-success-text: #047857;
+  --ds-success-muted: rgb(5 150 105 / 0.12);
+  --ds-success-border: #059669;
+
+  --ds-warning: #d97706;
+  --ds-warning-foreground: #ffffff;
+  --ds-warning-text: #b45309;
+  --ds-warning-muted: rgb(217 119 6 / 0.12);
+  --ds-warning-border: #d97706;
+
+  --ds-error: #dc2626;
+  --ds-error-foreground: #ffffff;
+  --ds-error-strong: #b91c1c;
+  --ds-error-text: #b91c1c;
+  --ds-error-muted: rgb(220 38 38 / 0.12);
+  --ds-error-border: #dc2626;
+
+  --ds-focus-ring: rgb(37 99 235 / 0.45);
+  --ds-focus-ring-offset: #f8fafc;
+
+  --ds-glass-panel-bg: rgb(255 255 255 / 0.72);
+  --ds-glass-panel-bg-strong: rgb(255 255 255 / 0.88);
+  --ds-glass-panel-bg-soft: rgb(255 255 255 / 0.56);
+  --ds-glass-nav-bg: rgb(248 250 252 / 0.8);
+  --ds-glass-overlay-bg: rgb(248 250 252 / 0.64);
+
+  --ds-shadow-xs: 0 1px 2px rgb(15 23 42 / 0.06);
+  --ds-shadow-sm: 0 4px 12px rgb(15 23 42 / 0.08);
+  --ds-shadow-md: 0 12px 32px rgb(15 23 42 / 0.1);
+  --ds-shadow-lg: 0 24px 48px rgb(15 23 42 / 0.12);
+  --ds-shadow-xl: 0 40px 80px rgb(15 23 42 / 0.14);
+  --ds-shadow-focus: 0 0 0 2px #f8fafc, 0 0 0 4px rgb(37 99 235 / 0.85);
+  --ds-shadow-card: 0 12px 32px rgb(15 23 42 / 0.1), 0 0 40px rgb(37 99 235 / 0.04);
+}

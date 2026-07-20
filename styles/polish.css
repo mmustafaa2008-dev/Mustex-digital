@@ -1,0 +1,452 @@
+/**
+ * Motion & interaction polish — decorative only.
+ * Does not alter layout or content structure.
+ * Prefer transform / opacity for GPU-friendly motion.
+ */
+
+@layer utilities {
+  /* Soft film grain for depth */
+  .polish-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 180px 180px;
+  }
+
+  /* Extremely subtle animated gradient mesh */
+  .polish-mesh {
+    background:
+      radial-gradient(
+        ellipse 42% 36% at 18% 28%,
+        rgb(37 99 235 / 0.14),
+        transparent 58%
+      ),
+      radial-gradient(
+        ellipse 38% 32% at 82% 18%,
+        rgb(96 165 250 / 0.1),
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 48% 40% at 55% 78%,
+        rgb(37 99 235 / 0.08),
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 30% 28% at 70% 55%,
+        rgb(59 130 246 / 0.06),
+        transparent 50%
+      );
+    background-size: 140% 140%;
+    background-position: 0% 40%, 100% 0%, 50% 100%, 80% 50%;
+    animation: polish-mesh-drift 32s ease-in-out infinite;
+    will-change: background-position, opacity;
+  }
+
+  @keyframes polish-mesh-drift {
+    0%,
+    100% {
+      background-position: 0% 40%, 100% 0%, 50% 100%, 80% 50%;
+      opacity: 0.85;
+    }
+    50% {
+      background-position: 100% 55%, 0% 80%, 70% 20%, 20% 70%;
+      opacity: 1;
+    }
+  }
+
+  /* Gradient border via mask (no layout shift) */
+  .polish-gradient-border {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .polish-gradient-border::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgb(96 165 250 / 0.45),
+      rgb(37 99 235 / 0.05) 40%,
+      rgb(96 165 250 / 0.2) 70%,
+      rgb(37 99 235 / 0.35)
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity var(--duration-normal) var(--ease-standard);
+  }
+
+  .polish-gradient-border:hover::after,
+  .polish-gradient-border:focus-within::after,
+  .group:hover .polish-gradient-border::after {
+    opacity: 1;
+  }
+
+  /* Glass specular sweep */
+  .polish-glass-reflection {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .polish-glass-reflection::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: -40% -60%;
+    background: linear-gradient(
+      115deg,
+      transparent 35%,
+      rgb(255 255 255 / 0.08) 48%,
+      transparent 62%
+    );
+    transform: translateX(-30%) rotate(8deg);
+    transition: transform 0.7s var(--ease-soft);
+    opacity: 0.55;
+  }
+
+  .polish-glass-reflection:hover::before,
+  .group:hover .polish-glass-reflection::before {
+    transform: translateX(35%) rotate(8deg);
+  }
+
+  /* Button gradient shine (transform-only) */
+  .polish-btn-shine {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .polish-btn-shine::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      110deg,
+      transparent 20%,
+      rgb(255 255 255 / 0.22) 45%,
+      transparent 70%
+    );
+    transform: translate3d(-120%, 0, 0);
+    transition: transform 0.65s var(--ease-soft);
+    opacity: 0.9;
+  }
+
+  .polish-btn-shine:hover::after,
+  .polish-btn-shine:focus-visible::after {
+    transform: translate3d(120%, 0, 0);
+  }
+
+  /* Soft ambient glow behind CTAs */
+  .polish-cta-glow {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .polish-cta-glow::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: -35% -20%;
+    z-index: -1;
+    border-radius: 9999px;
+    background: radial-gradient(
+      ellipse at center,
+      rgb(37 99 235 / 0.28),
+      transparent 68%
+    );
+    opacity: 0;
+    transform: scale(0.92);
+    transition:
+      opacity var(--duration-normal) var(--ease-standard),
+      transform var(--duration-slow) var(--ease-soft);
+  }
+
+  .polish-cta-glow:hover::before,
+  .polish-cta-glow:focus-within::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Premium link underline (no layout shift) */
+  .polish-link {
+    background-image: linear-gradient(
+      currentColor,
+      currentColor
+    );
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1.5px;
+    transition:
+      background-size var(--duration-normal) var(--ease-standard),
+      color var(--duration-fast) var(--ease-standard);
+  }
+
+  .polish-link:hover,
+  .polish-link:focus-visible {
+    background-size: 100% 1.5px;
+  }
+
+  /* Icon micro-motion + glow */
+  .polish-icon-glow {
+    transition:
+      transform var(--duration-normal) var(--ease-standard),
+      box-shadow var(--duration-normal) var(--ease-standard),
+      border-color var(--duration-normal) var(--ease-standard),
+      background-color var(--duration-normal) var(--ease-standard);
+  }
+
+  .group:hover .polish-icon-glow,
+  .group\/item:hover .polish-icon-glow {
+    transform: translate3d(0, -1px, 0) rotate(4deg) scale(1.05);
+    box-shadow: var(--ds-shadow-glow-sm);
+  }
+
+  /* Soft float for tech logos / badges */
+  .polish-float-soft {
+    animation: polish-float-soft 7s ease-in-out infinite;
+  }
+
+  .polish-float-soft:nth-child(2n) {
+    animation-delay: -1.4s;
+  }
+
+  .polish-float-soft:nth-child(3n) {
+    animation-delay: -2.8s;
+  }
+
+  .polish-float-soft:nth-child(5n) {
+    animation-delay: -4.2s;
+  }
+
+  @keyframes polish-float-soft {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -3px, 0);
+    }
+  }
+
+  /* Tech marquee */
+  .polish-marquee {
+    display: flex;
+    width: max-content;
+    animation: polish-marquee-x 42s linear infinite;
+  }
+
+  .polish-marquee:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes polish-marquee-x {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  /* Moving ambient grid */
+  .polish-grid-move {
+    background-image:
+      linear-gradient(to right, rgb(96 165 250 / 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(96 165 250 / 0.06) 1px, transparent 1px);
+    background-size: 72px 72px;
+    animation: polish-grid-drift 48s linear infinite;
+  }
+
+  @keyframes polish-grid-drift {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 72px 72px;
+    }
+  }
+
+  /* Aurora wash */
+  .polish-aurora {
+    background:
+      radial-gradient(
+        ellipse 50% 40% at 20% 20%,
+        rgb(37 99 235 / 0.18),
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 45% 35% at 80% 10%,
+        rgb(96 165 250 / 0.12),
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 55% 45% at 50% 90%,
+        rgb(37 99 235 / 0.1),
+        transparent 60%
+      );
+    animation: polish-aurora-breathe 22s ease-in-out infinite;
+  }
+
+  @keyframes polish-aurora-breathe {
+    0%,
+    100% {
+      opacity: 0.75;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.02);
+    }
+  }
+
+  /* Ambient glow orbs — CSS only (no Framer on the hot path) */
+  .polish-glow-orb {
+    position: absolute;
+    border-radius: 9999px;
+    /* Soft blur kept static; motion uses transform/opacity only */
+    filter: blur(120px);
+    will-change: transform, opacity;
+  }
+
+  .polish-glow-a {
+    top: -8rem;
+    left: 15%;
+    width: 28rem;
+    height: 28rem;
+    background: color-mix(in srgb, var(--ds-primary) 16%, transparent);
+    animation: polish-glow-drift-a 18s ease-in-out infinite;
+  }
+
+  .polish-glow-b {
+    top: 40%;
+    right: -8%;
+    width: 26rem;
+    height: 26rem;
+    background: color-mix(in srgb, var(--ds-primary-soft) 12%, transparent);
+    animation: polish-glow-drift-b 22s ease-in-out infinite;
+  }
+
+  .polish-glow-c {
+    bottom: -10%;
+    left: 35%;
+    width: 32rem;
+    height: 32rem;
+    background: color-mix(in srgb, var(--ds-primary) 10%, transparent);
+    animation: polish-glow-drift-c 26s ease-in-out infinite;
+  }
+
+  @keyframes polish-glow-drift-a {
+    0%,
+    100% {
+      opacity: 0.32;
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      opacity: 0.5;
+      transform: translate3d(36px, 12px, 0);
+    }
+  }
+
+  @keyframes polish-glow-drift-b {
+    0%,
+    100% {
+      opacity: 0.22;
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      opacity: 0.4;
+      transform: translate3d(-18px, -28px, 0);
+    }
+  }
+
+  @keyframes polish-glow-drift-c {
+    0%,
+    100% {
+      opacity: 0.18;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.36;
+      transform: scale(1.06);
+    }
+  }
+
+  /* Pointer-follow spotlight (driven via CSS vars on parent) */
+  .polish-pointer-glow {
+    position: absolute;
+    left: var(--pointer-x, 50%);
+    top: var(--pointer-y, 40%);
+    width: 28rem;
+    height: 28rem;
+    border-radius: 9999px;
+    pointer-events: none;
+    background: radial-gradient(
+      circle,
+      rgb(37 99 235 / 0.16),
+      transparent 68%
+    );
+    opacity: 0;
+    transform: translate3d(-50%, -50%, 0);
+    transition: opacity 0.4s var(--ease-standard);
+    will-change: left, top, opacity;
+  }
+
+  .group\/hero:hover .polish-pointer-glow {
+    opacity: 1;
+  }
+
+  @keyframes skeleton-shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .polish-marquee,
+    .polish-grid-move,
+    .polish-mesh,
+    .polish-aurora,
+    .polish-float-soft,
+    .polish-glass-reflection::before,
+    .polish-glow-a,
+    .polish-glow-b,
+    .polish-glow-c,
+    .polish-btn-shine::after,
+    .polish-pointer-glow {
+      animation: none !important;
+      transition: none !important;
+    }
+
+    .polish-glass-reflection::before {
+      transform: none;
+      opacity: 0.25;
+    }
+
+    .polish-btn-shine::after {
+      transform: none;
+      opacity: 0;
+    }
+
+    .group:hover .polish-icon-glow,
+    .group\/item:hover .polish-icon-glow {
+      transform: none;
+    }
+
+    .polish-float-soft {
+      transform: none;
+    }
+
+    .polish-pointer-glow {
+      opacity: 0 !important;
+    }
+  }
+}
