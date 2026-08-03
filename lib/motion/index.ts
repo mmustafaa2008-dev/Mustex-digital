@@ -1,5 +1,5 @@
 /**
- * Mustex Digital motion system — Framer Motion presets & utilities.
+ * Mustex Digitals motion system — Framer Motion presets & utilities.
  * No UI components; compose these into future motion.* elements.
  */
 

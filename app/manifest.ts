@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
 
+import { brand } from "@/data/brand";
 import { seoSite } from "@/data/seo";
 
 /**
- * PWA web app manifest — Mustex Digital branding.
+ * PWA web app manifest — Mustex Digitals branding.
  */
 export default function manifest(): MetadataRoute.Manifest {
   return {
@@ -20,25 +21,19 @@ export default function manifest(): MetadataRoute.Manifest {
     categories: ["business", "productivity"],
     icons: [
       {
-        src: "/icons/android-chrome-192x192.png",
-        sizes: "192x192",
-        type: "image/png",
-        purpose: "any",
-      },
-      {
-        src: "/icons/android-chrome-512x512.png",
+        src: brand.logoSrc,
         sizes: "512x512",
         type: "image/png",
         purpose: "any",
       },
       {
-        src: "/icons/android-chrome-512x512.png",
+        src: brand.logoSrc,
         sizes: "512x512",
         type: "image/png",
         purpose: "maskable",
       },
       {
-        src: "/icons/apple-touch-icon.png",
+        src: brand.logoSrc,
         sizes: "180x180",
         type: "image/png",
       },

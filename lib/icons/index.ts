@@ -1,5 +1,5 @@
 /**
- * Mustex Digital icon system — Lucide utilities only.
+ * Mustex Digitals icon system — Lucide utilities only.
  *
  * @example
  * import { ArrowRight } from "lucide-react";

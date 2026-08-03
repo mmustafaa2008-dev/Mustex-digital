@@ -11,10 +11,12 @@ import {
 import {
   Activity,
   Bot,
-  Cpu,
-  Gauge,
-  ShieldCheck,
+  Cloud,
+  Database,
+  GitBranch,
+  Server,
   Sparkles,
+  Workflow,
   type LucideIcon,
 } from "lucide-react";
 import {
@@ -61,152 +63,30 @@ const PARTICLES = [
   { x: "6%", y: "62%", s: 2, d: 8.8 },
 ] as const;
 
-function ProgressRing({
-  value,
-  label,
-  reduced,
-}: {
-  value: number;
-  label: string;
-  reduced: boolean;
-}) {
-  const r = 28;
-  const c = 2 * Math.PI * r;
-  const offset = c - (value / 100) * c;
+const CODE_LINES = [
+  { w: "72%", indent: false },
+  { w: "58%", indent: true },
+  { w: "84%", indent: false },
+  { w: "46%", indent: true },
+  { w: "68%", indent: true },
+  { w: "52%", indent: false },
+] as const;
 
-  return (
-    <div className="relative flex size-[4.5rem] items-center justify-center">
-      <svg viewBox="0 0 72 72" className="size-full -rotate-90">
-        <circle
-          cx="36"
-          cy="36"
-          r={r}
-          fill="none"
-          stroke="rgb(255 255 255 / 0.08)"
-          strokeWidth="4"
-        />
-        <motion.circle
-          cx="36"
-          cy="36"
-          r={r}
-          fill="none"
-          stroke="var(--ds-primary-text)"
-          strokeWidth="4"
-          strokeLinecap="round"
-          strokeDasharray={c}
-          initial={reduced ? { strokeDashoffset: offset } : { strokeDashoffset: c }}
-          animate={{ strokeDashoffset: offset }}
-          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1], delay: 0.35 }}
-          style={{ filter: "drop-shadow(0 0 6px rgb(37 99 235 / 0.55))" }}
-        />
-      </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-sm font-semibold tabular-nums text-[var(--ds-foreground)]">
-          {value}%
-        </span>
-        <span className="text-[0.5625rem] tracking-[0.14em] text-[var(--ds-foreground-muted)] uppercase">
-          {label}
-        </span>
-      </div>
-    </div>
-  );
-}
+const glassPanel = cn(
+  "border border-white/12 bg-[var(--glass-panel-bg)]",
+  "shadow-[0_12px_40px_rgb(0_0_0_/_0.35),var(--ds-shadow-glow-sm)]",
+  "backdrop-blur-[var(--glass-panel-blur)]",
+  "[-webkit-backdrop-filter:blur(var(--glass-panel-blur))]",
+);
 
-function LiveChart({ reduced }: { reduced: boolean }) {
-  return (
-    <svg
-      viewBox="0 0 220 72"
-      className="h-16 w-full overflow-visible"
-      aria-hidden="true"
-    >
-      <defs>
-        <linearGradient id="hero-chart-fill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="rgb(37 99 235 / 0.45)" />
-          <stop offset="100%" stopColor="rgb(37 99 235 / 0)" />
-        </linearGradient>
-        <linearGradient id="hero-chart-stroke" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#60a5fa" />
-          <stop offset="100%" stopColor="#2563eb" />
-        </linearGradient>
-      </defs>
-      <motion.path
-        d="M0 52 C18 48 28 30 44 34 C60 38 70 58 88 46 C106 34 118 18 136 24 C154 30 164 50 182 40 C196 32 208 22 220 28 L220 72 L0 72 Z"
-        fill="url(#hero-chart-fill)"
-        initial={reduced ? { opacity: 1 } : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.45 }}
-      />
-      <motion.path
-        d="M0 52 C18 48 28 30 44 34 C60 38 70 58 88 46 C106 34 118 18 136 24 C154 30 164 50 182 40 C196 32 208 22 220 28"
-        fill="none"
-        stroke="url(#hero-chart-stroke)"
-        strokeWidth="2.25"
-        strokeLinecap="round"
-        initial={reduced ? { pathLength: 1 } : { pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
-        style={{ filter: "drop-shadow(0 0 8px rgb(37 99 235 / 0.55))" }}
-      />
-      {!reduced ? (
-        <motion.circle
-          r="3.5"
-          fill="#60a5fa"
-          style={{ filter: "drop-shadow(0 0 8px rgb(96 165 250 / 0.9))" }}
-          animate={{
-            cx: [0, 44, 88, 136, 182, 220],
-            cy: [52, 34, 46, 24, 40, 28],
-          }}
-          transition={{
-            duration: 8,
-            ease: "easeInOut",
-            repeat: Infinity,
-            repeatType: "mirror",
-          }}
-        />
-      ) : null}
-    </svg>
-  );
-}
-
-function ActivityBars({ reduced }: { reduced: boolean }) {
-  const bars = [38, 62, 48, 78, 54, 88, 66, 72, 58, 84, 70, 92];
-
-  return (
-    <div className="flex h-14 items-end gap-1">
-      {bars.map((h, i) => (
-        <motion.span
-          key={i}
-          className="w-1.5 rounded-full bg-[var(--ds-primary-text)]/80"
-          style={{
-            boxShadow: "0 0 10px rgb(37 99 235 / 0.35)",
-            originY: 1,
-          }}
-          initial={reduced ? { height: `${h}%` } : { height: "12%" }}
-          animate={
-            reduced
-              ? { height: `${h}%` }
-              : { height: [`${h * 0.55}%`, `${h}%`, `${h * 0.7}%`] }
-          }
-          transition={{
-            duration: 2.4 + (i % 4) * 0.25,
-            ease: "easeInOut",
-            repeat: Infinity,
-            repeatType: "mirror",
-            delay: i * 0.08,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-function MetricChip({
+function FloatingChip({
   icon: Icon,
   label,
   value,
   className,
   float,
   delay = 0,
+  rotate = 0,
 }: {
   icon: LucideIcon;
   label: string;
@@ -214,20 +94,20 @@ function MetricChip({
   className?: string;
   float?: ReturnType<typeof createFloatingEffect>;
   delay?: number;
+  rotate?: number;
 }) {
   return (
     <motion.div
       aria-hidden="true"
       className={cn(
         "absolute z-30 flex items-center gap-2.5 rounded-[var(--ds-radius-lg)] px-3 py-2.5",
-        "border border-white/12 bg-[var(--glass-panel-bg-strong)]",
-        "shadow-[0_12px_40px_rgb(0_0_0_/_0.35),var(--ds-shadow-glow-sm)]",
-        "backdrop-blur-[var(--glass-panel-blur)]",
-        "[-webkit-backdrop-filter:blur(var(--glass-panel-blur))]",
+        glassPanel,
         className,
       )}
+      style={{ rotate }}
       animate={float?.animate}
       transition={{ ...float?.transition, delay }}
+      whileHover={{ scale: 1.03, y: -2 }}
     >
       <span className="inline-flex size-8 items-center justify-center rounded-[var(--ds-radius-md)] border border-[var(--ds-primary-text)]/25 bg-[var(--ds-primary-muted)] text-[var(--ds-primary-text)]">
         <Icon {...createIconProps({ size: "sm", decorative: true })} />
@@ -244,8 +124,467 @@ function MetricChip({
   );
 }
 
+function MiniChart({ reduced }: { reduced: boolean }) {
+  const bars = [42, 68, 54, 82, 58, 74, 48, 88, 62];
+
+  return (
+    <div className="flex h-10 items-end gap-0.5">
+      {bars.map((h, i) => (
+        <motion.span
+          key={i}
+          className="w-1 rounded-full bg-[var(--ds-primary-text)]/75"
+          style={{ boxShadow: "0 0 8px rgb(37 99 235 / 0.35)", originY: 1 }}
+          initial={reduced ? { height: `${h}%` } : { height: "10%" }}
+          animate={
+            reduced
+              ? { height: `${h}%` }
+              : { height: [`${h * 0.5}%`, `${h}%`, `${h * 0.65}%`] }
+          }
+          transition={{
+            duration: 2.2 + (i % 3) * 0.3,
+            ease: "easeInOut",
+            repeat: Infinity,
+            repeatType: "mirror",
+            delay: i * 0.06,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function CodeEditorPanel({
+  reduced,
+  float,
+}: {
+  reduced: boolean;
+  float?: ReturnType<typeof createFloatingEffect>;
+}) {
+  return (
+    <motion.div
+      aria-hidden="true"
+      className={cn(
+        "relative z-20 w-full max-w-[17rem] rounded-[var(--ds-radius-xl)] p-3.5 sm:max-w-[19rem] sm:p-4",
+        glassPanel,
+        "shadow-[0_24px_80px_rgb(0_0_0_/_0.45),var(--ds-shadow-glow-md)]",
+      )}
+      animate={float?.animate}
+      transition={float?.transition}
+      whileHover={reduced ? undefined : { y: -4, rotate: -0.5 }}
+    >
+      <div className="mb-3 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-1.5">
+          <span className="size-2 rounded-full bg-red-400/80" />
+          <span className="size-2 rounded-full bg-amber-400/80" />
+          <span className="size-2 rounded-full bg-emerald-400/80" />
+        </div>
+        <span className="text-[0.5625rem] tracking-[0.12em] text-[var(--ds-foreground-muted)] uppercase">
+          api.ts
+        </span>
+      </div>
+      <div className="space-y-2 rounded-[var(--ds-radius-md)] border border-white/8 bg-black/30 p-3 font-mono">
+        {CODE_LINES.map((line, i) => (
+          <motion.div
+            key={i}
+            className="flex items-center gap-2"
+            initial={reduced ? false : { opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 + i * 0.08, duration: 0.4 }}
+          >
+            <span className="w-3 text-[0.5625rem] text-[var(--ds-foreground-muted)]/50">
+              {i + 1}
+            </span>
+            <span
+              className={cn(
+                "h-1.5 rounded-full bg-[var(--ds-primary-text)]/60",
+                line.indent && "ml-3",
+              )}
+              style={{ width: line.w }}
+            />
+          </motion.div>
+        ))}
+      </div>
+      <div className="mt-3 flex items-center gap-2">
+        <span className="inline-flex items-center gap-1 rounded-full border border-emerald-400/25 bg-emerald-400/10 px-2 py-0.5 text-[0.5625rem] text-emerald-300">
+          <span className="size-1.5 rounded-full bg-emerald-400" />
+          Deployed
+        </span>
+        <span className="text-[0.5625rem] text-[var(--ds-foreground-muted)]">
+          12ms latency
+        </span>
+      </div>
+    </motion.div>
+  );
+}
+
+function ServerCard({
+  reduced,
+  className,
+  float,
+  delay = 0,
+}: {
+  reduced: boolean;
+  className?: string;
+  float?: ReturnType<typeof createFloatingEffect>;
+  delay?: number;
+}) {
+  return (
+    <motion.div
+      aria-hidden="true"
+      className={cn(
+        "absolute z-25 rounded-[var(--ds-radius-lg)] p-3",
+        glassPanel,
+        className,
+      )}
+      animate={float?.animate}
+      transition={{ ...float?.transition, delay }}
+      whileHover={reduced ? undefined : { scale: 1.04, y: -3 }}
+    >
+      <div className="mb-2 flex items-center gap-2">
+        <Server
+          {...createIconProps({ size: "xs", decorative: true })}
+          className="text-[var(--ds-primary-text)]"
+        />
+        <span className="text-[0.625rem] font-semibold text-[var(--ds-foreground)]">
+          Edge Node
+        </span>
+      </div>
+      <div className="space-y-1.5">
+        {[0.85, 0.62, 0.74].map((w, i) => (
+          <motion.div
+            key={i}
+            className="flex items-center gap-1.5"
+            initial={reduced ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 + i * 0.1 }}
+          >
+            <span className="size-1 rounded-full bg-emerald-400 shadow-[0_0_6px_rgb(52_211_153_/_0.8)]" />
+            <span
+              className="h-1 rounded-full bg-white/15"
+              style={{ width: `${w * 100}%` }}
+            />
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+function DatabasePanel({
+  reduced,
+  className,
+  float,
+}: {
+  reduced: boolean;
+  className?: string;
+  float?: ReturnType<typeof createFloatingEffect>;
+}) {
+  return (
+    <motion.div
+      aria-hidden="true"
+      className={cn(
+        "absolute z-25 flex flex-col items-center rounded-[var(--ds-radius-lg)] p-3",
+        glassPanel,
+        className,
+      )}
+      animate={float?.animate}
+      transition={float?.transition}
+      whileHover={reduced ? undefined : { scale: 1.04 }}
+    >
+      <Database
+        {...createIconProps({ size: "sm", decorative: true })}
+        className="mb-2 text-[var(--ds-primary-text)]"
+      />
+      <div className="flex flex-col items-center gap-1">
+        {[1, 0.82, 0.64].map((scale, i) => (
+          <motion.div
+            key={i}
+            className="h-2 rounded-sm border border-[var(--ds-primary-text)]/30 bg-[var(--ds-primary-muted)]"
+            style={{ width: `${scale * 3.5}rem` }}
+            initial={reduced ? false : { opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35 + i * 0.08 }}
+          />
+        ))}
+      </div>
+      <span className="mt-2 text-[0.5625rem] tracking-[0.1em] text-[var(--ds-foreground-muted)] uppercase">
+        PostgreSQL
+      </span>
+    </motion.div>
+  );
+}
+
+function AiNodeCluster({ reduced }: { reduced: boolean }) {
+  const nodes = [
+    { x: 50, y: 20 },
+    { x: 20, y: 55 },
+    { x: 80, y: 55 },
+    { x: 50, y: 85 },
+  ];
+
+  return (
+    <motion.div
+      aria-hidden="true"
+      className={cn(
+        "absolute z-25 rounded-[var(--ds-radius-lg)] p-3",
+        glassPanel,
+        "top-[4%] left-[2%] hidden w-[5.5rem] sm:block",
+      )}
+      whileHover={reduced ? undefined : { scale: 1.05 }}
+    >
+      <div className="mb-1.5 flex items-center gap-1.5">
+        <Bot
+          {...createIconProps({ size: "xs", decorative: true })}
+          className="text-[var(--ds-primary-text)]"
+        />
+        <span className="text-[0.5625rem] font-semibold text-[var(--ds-foreground)]">
+          AI Core
+        </span>
+      </div>
+      <svg viewBox="0 0 100 100" className="h-14 w-full">
+        {nodes.slice(0, 3).map((from, i) => {
+          const to = nodes[(i + 1) % 3];
+          return (
+            <motion.line
+              key={i}
+              x1={from.x}
+              y1={from.y}
+              x2={to.x}
+              y2={to.y}
+              stroke="rgb(96 165 250 / 0.35)"
+              strokeWidth="1"
+              initial={reduced ? false : { pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ delay: 0.5 + i * 0.15, duration: 0.8 }}
+            />
+          );
+        })}
+        {nodes.map((node, i) => (
+          <motion.circle
+            key={i}
+            cx={node.x}
+            cy={node.y}
+            r={i === 0 ? 5 : 3.5}
+            fill={i === 0 ? "#60a5fa" : "rgb(96 165 250 / 0.6)"}
+            initial={reduced ? false : { scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.4 + i * 0.1, type: "spring" }}
+            style={{ filter: "drop-shadow(0 0 4px rgb(96 165 250 / 0.8))" }}
+          />
+        ))}
+      </svg>
+    </motion.div>
+  );
+}
+
+function WorkflowPanel({
+  reduced,
+  className,
+  float,
+}: {
+  reduced: boolean;
+  className?: string;
+  float?: ReturnType<typeof createFloatingEffect>;
+}) {
+  return (
+    <motion.div
+      aria-hidden="true"
+      className={cn(
+        "absolute z-25 rounded-[var(--ds-radius-lg)] p-2.5",
+        glassPanel,
+        className,
+      )}
+      animate={float?.animate}
+      transition={float?.transition}
+      whileHover={reduced ? undefined : { scale: 1.04, rotate: 1 }}
+    >
+      <div className="mb-2 flex items-center gap-1.5">
+        <Workflow
+          {...createIconProps({ size: "xs", decorative: true })}
+          className="text-[var(--ds-primary-text)]"
+        />
+        <span className="text-[0.5625rem] font-semibold text-[var(--ds-foreground)]">
+          Automation
+        </span>
+      </div>
+      <div className="flex items-center gap-1">
+        {["Trigger", "Process", "Deploy"].map((step, i) => (
+          <div key={step} className="flex items-center gap-1">
+            <motion.span
+              className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 text-[0.5rem] text-[var(--ds-foreground-muted)]"
+              initial={reduced ? false : { opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 + i * 0.12 }}
+            >
+              {step}
+            </motion.span>
+            {i < 2 ? (
+              <GitBranch
+                {...createIconProps({ size: "xs", decorative: true })}
+                className="size-2.5 text-[var(--ds-primary-text)]/50"
+              />
+            ) : null}
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+function AnalyticsWidget({
+  reduced,
+  className,
+  float,
+}: {
+  reduced: boolean;
+  className?: string;
+  float?: ReturnType<typeof createFloatingEffect>;
+}) {
+  return (
+    <motion.div
+      aria-hidden="true"
+      className={cn(
+        "absolute z-30 rounded-[var(--ds-radius-lg)] p-3",
+        glassPanel,
+        className,
+      )}
+      animate={float?.animate}
+      transition={float?.transition}
+      whileHover={reduced ? undefined : { scale: 1.03 }}
+    >
+      <div className="mb-2 flex items-center justify-between">
+        <span className="inline-flex items-center gap-1 text-[0.5625rem] tracking-[0.1em] text-[var(--ds-foreground-muted)] uppercase">
+          <Activity
+            {...createIconProps({ size: "xs", decorative: true })}
+          />
+          Analytics
+        </span>
+        <span className="text-[0.625rem] font-semibold text-emerald-400">
+          +24%
+        </span>
+      </div>
+      <MiniChart reduced={reduced} />
+    </motion.div>
+  );
+}
+
+function CloudPanel({
+  reduced,
+  className,
+  float,
+}: {
+  reduced: boolean;
+  className?: string;
+  float?: ReturnType<typeof createFloatingEffect>;
+}) {
+  return (
+    <motion.div
+      aria-hidden="true"
+      className={cn(
+        "absolute z-25 flex items-center gap-2 rounded-[var(--ds-radius-lg)] px-3 py-2.5",
+        glassPanel,
+        className,
+      )}
+      animate={float?.animate}
+      transition={float?.transition}
+      whileHover={reduced ? undefined : { scale: 1.05, y: -2 }}
+    >
+      <span className="inline-flex size-7 items-center justify-center rounded-[var(--ds-radius-md)] border border-[var(--ds-primary-text)]/25 bg-[var(--ds-primary-muted)] text-[var(--ds-primary-text)]">
+        <Cloud {...createIconProps({ size: "xs", decorative: true })} />
+      </span>
+      <div className="flex flex-col leading-none">
+        <span className="text-[0.5625rem] tracking-[0.12em] text-[var(--ds-foreground-muted)] uppercase">
+          Cloud
+        </span>
+        <span className="mt-0.5 text-xs font-semibold text-[var(--ds-foreground)]">
+          3 regions
+        </span>
+      </div>
+      {!reduced ? (
+        <motion.span
+          className="ml-1 size-1.5 rounded-full bg-emerald-400"
+          animate={{ opacity: [0.4, 1, 0.4] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          style={{ boxShadow: "0 0 6px rgb(52 211 153 / 0.8)" }}
+        />
+      ) : null}
+    </motion.div>
+  );
+}
+
+function NetworkLines({ reduced }: { reduced: boolean }) {
+  const paths = [
+    "M60 50 C120 30 160 40 200 60",
+    "M340 70 C280 90 240 100 200 110",
+    "M80 240 C140 210 170 190 200 170",
+    "M320 220 C260 200 230 185 200 165",
+    "M200 50 L200 130",
+    "M200 130 L200 210",
+  ];
+
+  return (
+    <svg
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 z-10 h-full w-full"
+      viewBox="0 0 400 320"
+      preserveAspectRatio="none"
+    >
+      {paths.map((d, i) => (
+        <motion.path
+          key={i}
+          d={d}
+          fill="none"
+          stroke="rgb(96 165 250 / 0.22)"
+          strokeWidth="1"
+          strokeDasharray="4 6"
+          initial={reduced ? false : { pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: 1.2, delay: 0.3 + i * 0.12 }}
+        />
+      ))}
+      {!reduced ? (
+        <>
+          <motion.circle
+            r="2.5"
+            fill="#60a5fa"
+            style={{ filter: "drop-shadow(0 0 6px rgb(96 165 250 / 0.9))" }}
+            animate={{
+              cx: [60, 120, 160, 200],
+              cy: [50, 30, 40, 60],
+              opacity: [0.3, 1, 1, 0.4],
+            }}
+            transition={{
+              duration: 5,
+              ease: "easeInOut",
+              repeat: Infinity,
+              repeatType: "mirror",
+            }}
+          />
+          <motion.circle
+            r="2"
+            fill="#93c5fd"
+            style={{ filter: "drop-shadow(0 0 5px rgb(147 197 253 / 0.8))" }}
+            animate={{
+              cx: [340, 280, 240, 200],
+              cy: [70, 90, 100, 110],
+              opacity: [0.3, 1, 0.8, 0.3],
+            }}
+            transition={{
+              duration: 6,
+              ease: "easeInOut",
+              repeat: Infinity,
+              repeatType: "mirror",
+              delay: 1,
+            }}
+          />
+        </>
+      ) : null}
+    </svg>
+  );
+}
+
 /**
- * Animated AI software dashboard for the homepage hero.
+ * Animated enterprise technology illustration for the homepage hero.
  * Decorative — exposed via aria-label on the figure.
  */
 function HeroVisual({ ariaLabel, className, style }: HeroVisualProps) {
@@ -257,7 +596,6 @@ function HeroVisual({ ariaLabel, className, style }: HeroVisualProps) {
   const springX = useSpring(mouseX, springConfig);
   const springY = useSpring(mouseY, springConfig);
 
-  // Depth layers — lighter / stronger response to the same pointer signal
   const layer1X = useSpring(mouseX, { ...springConfig, stiffness: 50 });
   const layer1Y = useSpring(mouseY, { ...springConfig, stiffness: 50 });
   const layer2X = useSpring(mouseX, { ...springConfig, stiffness: 95 });
@@ -292,6 +630,9 @@ function HeroVisual({ ariaLabel, className, style }: HeroVisualProps) {
   const floatC = prefersReducedMotion
     ? undefined
     : createFloatingEffect({ distance: 12, duration: 7 });
+  const floatD = prefersReducedMotion
+    ? undefined
+    : createFloatingEffect({ distance: 9, duration: 6.2 });
 
   const reveal = useMemo(
     () =>
@@ -359,13 +700,11 @@ function HeroVisual({ ariaLabel, className, style }: HeroVisualProps) {
         />
       ) : null}
 
-      {/* Noise */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 rounded-[inherit] polish-noise opacity-[0.05] mix-blend-overlay"
       />
 
-      {/* Gradient light sweep */}
       {!prefersReducedMotion ? (
         <motion.div
           aria-hidden="true"
@@ -379,15 +718,10 @@ function HeroVisual({ ariaLabel, className, style }: HeroVisualProps) {
         />
       ) : null}
 
-      {/* Light blobs */}
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute top-[8%] left-[18%] size-48 rounded-full bg-[var(--ds-primary)]/25 blur-[70px]"
-        style={
-          prefersReducedMotion
-            ? undefined
-            : { x: deepX, y: deepY }
-        }
+        style={prefersReducedMotion ? undefined : { x: deepX, y: deepY }}
         animate={
           prefersReducedMotion
             ? undefined
@@ -406,7 +740,6 @@ function HeroVisual({ ariaLabel, className, style }: HeroVisualProps) {
         transition={{ duration: 11, ease: "easeInOut", repeat: Infinity }}
       />
 
-      {/* Core orb */}
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute top-1/2 left-1/2 z-0 size-[14rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--ds-primary)]/30 blur-[60px] md:size-[18rem]"
@@ -422,7 +755,6 @@ function HeroVisual({ ariaLabel, className, style }: HeroVisualProps) {
         transition={{ duration: 10, ease: "easeInOut", repeat: Infinity }}
       />
 
-      {/* Particles */}
       {PARTICLES.map((p, i) => (
         <motion.span
           key={i}
@@ -449,70 +781,12 @@ function HeroVisual({ ariaLabel, className, style }: HeroVisualProps) {
         />
       ))}
 
-      {/* Connection lines */}
-      <svg
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-10 h-full w-full"
-        viewBox="0 0 400 320"
-        preserveAspectRatio="none"
-      >
-        <motion.path
-          d="M70 70 C140 90 180 120 210 150"
-          fill="none"
-          stroke="rgb(96 165 250 / 0.28)"
-          strokeWidth="1"
-          strokeDasharray="4 6"
-          initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: 1.4, delay: 0.5 }}
-        />
-        <motion.path
-          d="M330 80 C280 110 250 140 220 160"
-          fill="none"
-          stroke="rgb(96 165 250 / 0.22)"
-          strokeWidth="1"
-          strokeDasharray="4 6"
-          initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: 1.4, delay: 0.7 }}
-        />
-        <motion.path
-          d="M90 250 C150 220 180 190 210 170"
-          fill="none"
-          stroke="rgb(96 165 250 / 0.2)"
-          strokeWidth="1"
-          strokeDasharray="4 6"
-          initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: 1.4, delay: 0.9 }}
-        />
-        {!prefersReducedMotion ? (
-          <motion.circle
-            r="2.5"
-            fill="#60a5fa"
-            style={{ filter: "drop-shadow(0 0 6px rgb(96 165 250 / 0.9))" }}
-            animate={{
-              cx: [70, 140, 180, 210],
-              cy: [70, 90, 120, 150],
-              opacity: [0.4, 1, 1, 0.5],
-            }}
-            transition={{
-              duration: 4.5,
-              ease: "easeInOut",
-              repeat: Infinity,
-              repeatType: "mirror",
-            }}
-          />
-        ) : null}
-      </svg>
+      <NetworkLines reduced={prefersReducedMotion} />
 
-      {/* Orbit ring */}
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute top-1/2 left-1/2 z-10 size-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--ds-primary)]/15"
-        animate={
-          prefersReducedMotion ? undefined : { rotate: 360 }
-        }
+        animate={prefersReducedMotion ? undefined : { rotate: 360 }}
         transition={{ duration: 48, ease: "linear", repeat: Infinity }}
       >
         <span className="absolute top-0 left-1/2 size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--ds-primary-text)] shadow-[0_0_10px_rgb(96_165_250_/_0.9)]" />
@@ -526,168 +800,61 @@ function HeroVisual({ ariaLabel, className, style }: HeroVisualProps) {
         viewport={{ once: true, amount: 0.25 }}
         variants={reveal}
       >
-        {/* Floating chips */}
         <motion.div
           style={
-            prefersReducedMotion
-              ? undefined
-              : { x: layer2X, y: layer2Y }
+            prefersReducedMotion ? undefined : { x: layer2X, y: layer2Y }
           }
           className="contents"
         >
-          <MetricChip
-            icon={Activity}
-            label="Throughput"
-            value="2.4k/s"
-            className="top-[6%] left-[2%] hidden sm:flex"
-            float={floatA}
-            delay={0.2}
-          />
-          <MetricChip
-            icon={ShieldCheck}
-            label="Uptime"
-            value="99.98%"
-            className="top-[10%] right-[0%] hidden sm:flex"
+          <FloatingChip
+            icon={Sparkles}
+            label="API Gateway"
+            value="REST · GraphQL"
+            className="top-[4%] right-[0%] hidden sm:flex"
             float={floatB}
-            delay={0.45}
+            delay={0.25}
+            rotate={2}
           />
-          <MetricChip
-            icon={Bot}
-            label="AI Agents"
-            value="12 active"
-            className="bottom-[8%] left-[0%] hidden sm:flex"
+          <CloudPanel
+            reduced={prefersReducedMotion}
+            className="top-[12%] right-[8%] hidden md:flex"
             float={floatC}
-            delay={0.6}
+          />
+          <AiNodeCluster reduced={prefersReducedMotion} />
+          <AnalyticsWidget
+            reduced={prefersReducedMotion}
+            className="bottom-[6%] right-[2%] hidden sm:block"
+            float={floatA}
+          />
+          <WorkflowPanel
+            reduced={prefersReducedMotion}
+            className="bottom-[14%] left-[0%] hidden sm:block"
+            float={floatD}
+          />
+          <ServerCard
+            reduced={prefersReducedMotion}
+            className="bottom-[22%] right-[12%] hidden md:block"
+            float={floatB}
+            delay={0.35}
+          />
+          <DatabasePanel
+            reduced={prefersReducedMotion}
+            className="top-[38%] left-[0%] hidden md:block"
+            float={floatC}
           />
         </motion.div>
 
-        {/* Main dashboard */}
         <motion.div
           variants={fadeUp}
           style={
-            prefersReducedMotion
-              ? undefined
-              : { x: layer1X, y: layer1Y }
+            prefersReducedMotion ? undefined : { x: layer1X, y: layer1Y }
           }
-          className="relative z-20 w-full max-w-[26rem]"
+          className="relative z-20"
         >
-          <motion.div
-            aria-hidden="true"
-            className={cn(
-              "flex flex-col gap-4 rounded-[var(--ds-radius-xl)] p-4 sm:p-5",
-              "border border-white/14 bg-[var(--glass-panel-bg)]",
-              "shadow-[0_24px_80px_rgb(0_0_0_/_0.45),var(--ds-shadow-glow-md)]",
-              "backdrop-blur-[var(--glass-panel-blur)]",
-              "[-webkit-backdrop-filter:blur(var(--glass-panel-blur))]",
-            )}
-            animate={floatMain?.animate}
-            transition={floatMain?.transition}
-          >
-            {/* Title bar */}
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex items-center gap-2">
-                <span className="inline-flex size-8 items-center justify-center rounded-[var(--ds-radius-md)] border border-[var(--ds-primary-text)]/30 bg-[var(--ds-primary-muted)] text-[var(--ds-primary-text)]">
-                  <Cpu
-                    {...createIconProps({ size: "sm", decorative: true })}
-                  />
-                </span>
-                <div className="flex flex-col leading-none">
-                  <span className="text-xs font-semibold tracking-[-0.01em] text-[var(--ds-foreground)]">
-                    Mustex AI Console
-                  </span>
-                  <span className="mt-1 flex items-center gap-1.5 text-[0.625rem] text-[var(--ds-foreground-muted)]">
-                    <span className="relative flex size-1.5">
-                      <span className="absolute inset-0 animate-ping rounded-full bg-emerald-400/70" />
-                      <span className="relative size-1.5 rounded-full bg-emerald-400" />
-                    </span>
-                    Live inference
-                  </span>
-                </div>
-              </div>
-              <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2 py-1 text-[0.625rem] text-[var(--ds-primary-text)]">
-                <Sparkles
-                  {...createIconProps({ size: "xs", decorative: true })}
-                />
-                v2.4
-              </span>
-            </div>
-
-            {/* Chart panel */}
-            <div
-              className={cn(
-                "rounded-[var(--ds-radius-lg)] border border-white/10 bg-black/25 p-3",
-              )}
-            >
-              <div className="mb-2 flex items-center justify-between">
-                <span className="text-[0.625rem] tracking-[0.14em] text-[var(--ds-foreground-muted)] uppercase">
-                  Model latency
-                </span>
-                <span className="text-[0.6875rem] font-semibold text-[var(--ds-primary-text)]">
-                  −18% p95
-                </span>
-              </div>
-              <LiveChart reduced={prefersReducedMotion} />
-            </div>
-
-            {/* Widgets row */}
-            <div className="grid grid-cols-[auto_1fr] gap-3">
-              <div
-                className={cn(
-                  "flex items-center justify-center rounded-[var(--ds-radius-lg)] border border-white/10 bg-black/20 p-2",
-                )}
-              >
-                <ProgressRing
-                  value={94}
-                  label="Health"
-                  reduced={prefersReducedMotion}
-                />
-              </div>
-
-              <div
-                className={cn(
-                  "flex flex-col justify-between rounded-[var(--ds-radius-lg)] border border-white/10 bg-black/20 p-3",
-                )}
-              >
-                <div className="mb-2 flex items-center justify-between">
-                  <span className="inline-flex items-center gap-1.5 text-[0.625rem] tracking-[0.12em] text-[var(--ds-foreground-muted)] uppercase">
-                    <Gauge
-                      {...createIconProps({ size: "xs", decorative: true })}
-                    />
-                    Activity
-                  </span>
-                  <span className="text-[0.6875rem] font-semibold tabular-nums text-[var(--ds-foreground)]">
-                    86.2
-                  </span>
-                </div>
-                <ActivityBars reduced={prefersReducedMotion} />
-              </div>
-            </div>
-
-            {/* Metric footer */}
-            <div className="grid grid-cols-3 gap-2">
-              {[
-                { label: "Requests", value: "1.2M" },
-                { label: "Accuracy", value: "99.4%" },
-                { label: "Regions", value: "8" },
-              ].map((metric) => (
-                <div
-                  key={metric.label}
-                  className="rounded-[var(--ds-radius-md)] border border-white/8 bg-white/[0.03] px-2.5 py-2"
-                >
-                  <p className="text-[0.5625rem] tracking-[0.12em] text-[var(--ds-foreground-muted)] uppercase">
-                    {metric.label}
-                  </p>
-                  <p className="mt-1 text-sm font-semibold tabular-nums text-[var(--ds-foreground)]">
-                    {metric.value}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+          <CodeEditorPanel reduced={prefersReducedMotion} float={floatMain} />
         </motion.div>
       </motion.div>
 
-      {/* Edge vignette */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-white/10"

@@ -81,7 +81,7 @@ const FaqSection = dynamic(
 );
 
 /**
- * Mustex Digital homepage — hero + services eager; remainder code-split.
+ * Mustex Digitals homepage — hero + services eager; remainder code-split.
  */
 export default function Home() {
   return (

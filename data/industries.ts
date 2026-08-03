@@ -14,7 +14,7 @@ import {
 import type { IndustriesContent } from "@/types/content";
 
 /**
- * Industry verticals served by Mustex Digital.
+ * Industry verticals served by Mustex Digitals.
  */
 export const industries = {
   section: {

@@ -16,14 +16,14 @@ export function createServiceMetadata(slug: string) {
   const service = getServiceBySlug(slug);
   if (!service) return {};
 
-  const title = `${service.title} | Mustex Digital`;
+  const title = `${service.title} | Mustex Digitals`;
   const baseDescription = service.shortDescription.trim();
   const description =
     baseDescription.length >= 140 && baseDescription.length <= 160
       ? baseDescription
       : baseDescription.length > 160
         ? `${baseDescription.slice(0, 157).trimEnd()}…`
-        : `${baseDescription} Expert delivery by Mustex Digital.`;
+        : `${baseDescription} Expert delivery by Mustex Digitals.`;
 
   return createPageMetadata("services", {
     title,

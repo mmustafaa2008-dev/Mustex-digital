@@ -5,24 +5,25 @@ import type { SeoPageConfig, SeoRouteKey, SeoSiteConfig } from "@/types/seo";
  * Do not duplicate page titles/descriptions elsewhere.
  */
 export const seoSite: SeoSiteConfig = {
-  name: "Mustex Digital",
+  name: "Mustex Digitals",
   shortName: "Mustex",
-  tagline: "Building Software That Scales",
+  tagline: "We build brands. We grow businesses.",
   description:
-    "Mustex Digital builds scalable software, modern websites, mobile apps, and AI automation for ambitious businesses worldwide.",
-  url: "https://mustexdigital.com",
+    "Mustex Digitals builds scalable software, modern websites, mobile apps, and AI automation for ambitious businesses worldwide.",
+  url: "https://mustexdigitals.com",
   locale: "en_US",
   language: "en",
-  applicationName: "Mustex Digital",
+  applicationName: "Mustex Digitals",
   themeColor: {
     light: "#ffffff",
     dark: "#0a0a0a",
   },
-  defaultOgImage: "/og-default.png",
+  defaultOgImage: "/logo.png",
+  ogImageDimensions: { width: 512, height: 512 },
   twitterHandle: "@mustexdigital",
-  authors: [{ name: "Mustex Digital", url: "https://mustexdigital.com" }],
-  creator: "Mustex Digital",
-  publisher: "Mustex Digital",
+  authors: [{ name: "Mustex Digitals", url: "https://mustexdigitals.com" }],
+  creator: "Mustex Digitals",
+  publisher: "Mustex Digitals",
   category: "Software Development",
   defaultKeywords: [
     "Software Development",
@@ -37,16 +38,16 @@ export const seoSite: SeoSiteConfig = {
     "CRM",
     "Pakistan",
     "Global Software Company",
-    "Mustex Digital",
+    "Mustex Digitals",
     "Custom Software",
     "Next.js Development",
   ],
   organization: {
-    name: "Mustex Digital",
-    legalName: "Mustex Digital",
-    url: "https://mustexdigital.com",
+    name: "Mustex Digitals",
+    legalName: "Mustex Digitals",
+    url: "https://mustexdigitals.com",
     logoPath: "/logo.png",
-    email: "hello@mustexdigital.com",
+    email: "mustexdigitals@gmail.com",
     description:
       "Premium software development and AI automation company building scalable digital products for global businesses.",
     foundingCountry: "PK",
@@ -55,8 +56,8 @@ export const seoSite: SeoSiteConfig = {
     sameAs: [
       "https://www.linkedin.com/company/mustexdigital",
       "https://github.com/mustexdigital",
-      "https://www.facebook.com/mustexdigital",
-      "https://www.instagram.com/mustexdigital",
+      "https://www.facebook.com/profile.php?id=61592759062818",
+      "https://www.instagram.com/mustexdigitals/?hl=en",
       "https://x.com/mustexdigital",
     ],
     priceRange: "$$",
@@ -72,10 +73,10 @@ const sharedKeywords = seoSite.defaultKeywords;
 export const seoPages = {
   home: {
     title:
-      "Mustex Digital | Premium Software Development & AI Automation Company",
+      "Mustex Digitals | Premium Software Development & AI Automation Company",
     absoluteTitle: true,
     description:
-      "Mustex Digital engineers scalable software, websites, mobile apps, and AI automation that help startups and enterprises grow with confidence.",
+      "Mustex Digitals engineers scalable software, websites, mobile apps, and AI automation that help startups and enterprises grow with confidence.",
     keywords: sharedKeywords,
     path: "/",
     category: "Software Development",
@@ -83,13 +84,13 @@ export const seoPages = {
     breadcrumb: [{ name: "Home", path: "/" }],
   },
   about: {
-    title: "About Mustex Digital",
+    title: "About Mustex Digitals",
     absoluteTitle: true,
     description:
-      "Learn how Mustex Digital partners with ambitious teams to design, build, and scale resilient software products powered by modern engineering and AI.",
+      "Learn how Mustex Digitals partners with ambitious teams to design, build, and scale resilient software products powered by modern engineering and AI.",
     keywords: [
       ...sharedKeywords,
-      "About Mustex Digital",
+      "About Mustex Digitals",
       "Software Company Pakistan",
     ],
     path: "/about",
@@ -101,10 +102,10 @@ export const seoPages = {
     ],
   },
   services: {
-    title: "Software Development Services | Mustex Digital",
+    title: "Software Development Services | Mustex Digitals",
     absoluteTitle: true,
     description:
-      "Explore Mustex Digital software services — web, full stack, mobile, AI automation, UI/UX, cloud, and custom platforms engineered for growth.",
+      "Explore Mustex Digitals software services — web, full stack, mobile, AI automation, UI/UX, cloud, and custom platforms engineered for growth.",
     keywords: [
       ...sharedKeywords,
       "Software Development Services",
@@ -119,10 +120,10 @@ export const seoPages = {
     ],
   },
   work: {
-    title: "Portfolio | Mustex Digital",
+    title: "Portfolio | Mustex Digitals",
     absoluteTitle: true,
     description:
-      "Browse featured Mustex Digital projects spanning modern websites, product platforms, mobile experiences, and AI-powered business systems.",
+      "Browse featured Mustex Digitals projects spanning modern websites, product platforms, mobile experiences, and AI-powered business systems.",
     keywords: [
       ...sharedKeywords,
       "Software Portfolio",
@@ -138,13 +139,13 @@ export const seoPages = {
     ],
   },
   contact: {
-    title: "Contact Mustex Digital",
+    title: "Contact Mustex Digitals",
     absoluteTitle: true,
     description:
-      "Contact Mustex Digital to discuss software development, AI automation, timelines, and partnerships. We respond quickly during business hours.",
+      "Contact Mustex Digitals to discuss software development, AI automation, timelines, and partnerships. We respond quickly during business hours.",
     keywords: [
       ...sharedKeywords,
-      "Contact Mustex Digital",
+      "Contact Mustex Digitals",
       "Hire Software Developers",
     ],
     path: "/contact",
@@ -156,10 +157,10 @@ export const seoPages = {
     ],
   },
   startProject: {
-    title: "Start Your Project | Mustex Digital",
+    title: "Start Your Project | Mustex Digitals",
     absoluteTitle: true,
     description:
-      "Start your Mustex Digital project in minutes — share your service needs, budget, timeline, and goals for a tailored software proposal.",
+      "Start your Mustex Digitals project in minutes — share your service needs, budget, timeline, and goals for a tailored software proposal.",
     keywords: [
       ...sharedKeywords,
       "Start a Software Project",
@@ -175,10 +176,10 @@ export const seoPages = {
     ],
   },
   industries: {
-    title: "Industries We Serve | Mustex Digital",
+    title: "Industries We Serve | Mustex Digitals",
     absoluteTitle: true,
     description:
-      "Mustex Digital delivers software for startups, enterprises, ecommerce, healthcare-ready workflows, and digital-first organizations worldwide.",
+      "Mustex Digitals delivers software for startups, enterprises, ecommerce, healthcare-ready workflows, and digital-first organizations worldwide.",
     keywords: [
       ...sharedKeywords,
       "Industry Software Solutions",
@@ -193,10 +194,10 @@ export const seoPages = {
     ],
   },
   technology: {
-    title: "Technology Stack | Mustex Digital",
+    title: "Technology Stack | Mustex Digitals",
     absoluteTitle: true,
     description:
-      "See the modern technology stack Mustex Digital uses — React, Next.js, Node.js, Flutter, cloud platforms, and AI tooling for resilient products.",
+      "See the modern technology stack Mustex Digitals uses — React, Next.js, Node.js, Flutter, cloud platforms, and AI tooling for resilient products.",
     keywords: [
       ...sharedKeywords,
       "Technology Stack",
@@ -212,10 +213,10 @@ export const seoPages = {
     ],
   },
   process: {
-    title: "Development Process | Mustex Digital",
+    title: "Development Process | Mustex Digitals",
     absoluteTitle: true,
     description:
-      "Discover Mustex Digital’s structured development process — discovery, design, engineering, launch, and long-term product support.",
+      "Discover Mustex Digitals’s structured development process — discovery, design, engineering, launch, and long-term product support.",
     keywords: [
       ...sharedKeywords,
       "Software Development Process",
@@ -230,10 +231,10 @@ export const seoPages = {
     ],
   },
   faq: {
-    title: "FAQ | Mustex Digital",
+    title: "FAQ | Mustex Digitals",
     absoluteTitle: true,
     description:
-      "Answers to common questions about Mustex Digital services, technologies, timelines, support, and how we build custom software.",
+      "Answers to common questions about Mustex Digitals services, technologies, timelines, support, and how we build custom software.",
     keywords: [...sharedKeywords, "Software Development FAQ", "Mustex FAQ"],
     path: "/faq",
     category: "Support",
@@ -244,11 +245,11 @@ export const seoPages = {
     ],
   },
   privacy: {
-    title: "Privacy Policy | Mustex Digital",
+    title: "Privacy Policy | Mustex Digitals",
     absoluteTitle: true,
     description:
-      "Read the Mustex Digital privacy policy to understand how we collect, use, and protect personal information across our website and services.",
-    keywords: ["Privacy Policy", "Mustex Digital", "Data Protection"],
+      "Read the Mustex Digitals privacy policy to understand how we collect, use, and protect personal information across our website and services.",
+    keywords: ["Privacy Policy", "Mustex Digitals", "Data Protection"],
     path: "/legal/privacy",
     category: "Legal",
     robots: { index: true, follow: true },
@@ -259,11 +260,11 @@ export const seoPages = {
     ],
   },
   terms: {
-    title: "Terms of Service | Mustex Digital",
+    title: "Terms of Service | Mustex Digitals",
     absoluteTitle: true,
     description:
-      "Review Mustex Digital terms of service covering website use, engagements, intellectual property, and client responsibilities.",
-    keywords: ["Terms of Service", "Mustex Digital", "Legal"],
+      "Review Mustex Digitals terms of service covering website use, engagements, intellectual property, and client responsibilities.",
+    keywords: ["Terms of Service", "Mustex Digitals", "Legal"],
     path: "/legal/terms",
     category: "Legal",
     robots: { index: true, follow: true },
@@ -274,10 +275,10 @@ export const seoPages = {
     ],
   },
   webDevelopment: {
-    title: "Professional Web Development Services | Mustex Digital",
+    title: "Professional Web Development Services | Mustex Digitals",
     absoluteTitle: true,
     description:
-      "Professional web development from Mustex Digital — fast, accessible, conversion-focused business websites engineered with modern frameworks.",
+      "Professional web development from Mustex Digitals — fast, accessible, conversion-focused business websites engineered with modern frameworks.",
     keywords: [
       ...sharedKeywords,
       "Web Development Services",
@@ -293,10 +294,10 @@ export const seoPages = {
     ],
   },
   fullStack: {
-    title: "Full Stack Development Company | Mustex Digital",
+    title: "Full Stack Development Company | Mustex Digitals",
     absoluteTitle: true,
     description:
-      "Partner with Mustex Digital for full stack development — scalable APIs, modern frontends, and reliable cloud-ready application architecture.",
+      "Partner with Mustex Digitals for full stack development — scalable APIs, modern frontends, and reliable cloud-ready application architecture.",
     keywords: [
       ...sharedKeywords,
       "Full Stack Development Company",
@@ -315,10 +316,10 @@ export const seoPages = {
     ],
   },
   mobile: {
-    title: "Mobile App Development Company | Mustex Digital",
+    title: "Mobile App Development Company | Mustex Digitals",
     absoluteTitle: true,
     description:
-      "Mustex Digital builds high-quality mobile apps with Flutter and modern tooling — polished UX, performance, and long-term maintainability.",
+      "Mustex Digitals builds high-quality mobile apps with Flutter and modern tooling — polished UX, performance, and long-term maintainability.",
     keywords: [
       ...sharedKeywords,
       "Mobile App Development Company",
@@ -337,10 +338,10 @@ export const seoPages = {
     ],
   },
   aiAutomation: {
-    title: "AI Automation Solutions | Mustex Digital",
+    title: "AI Automation Solutions | Mustex Digitals",
     absoluteTitle: true,
     description:
-      "Deploy AI automation solutions with Mustex Digital — intelligent workflows, agents, and integrations that reduce manual work and scale operations.",
+      "Deploy AI automation solutions with Mustex Digitals — intelligent workflows, agents, and integrations that reduce manual work and scale operations.",
     keywords: [
       ...sharedKeywords,
       "AI Automation Solutions",
@@ -357,10 +358,10 @@ export const seoPages = {
     ],
   },
   digitalMarketing: {
-    title: "Digital Marketing Services | Mustex Digital",
+    title: "Digital Marketing Services | Mustex Digitals",
     absoluteTitle: true,
     description:
-      "Grow with Mustex Digital digital marketing services — strategy, campaigns, and conversion-focused experiences aligned to your product goals.",
+      "Grow with Mustex Digitals digital marketing services — strategy, campaigns, and conversion-focused experiences aligned to your product goals.",
     keywords: [
       ...sharedKeywords,
       "Digital Marketing Services",
@@ -376,10 +377,10 @@ export const seoPages = {
     ],
   },
   cloudSolutions: {
-    title: "Cloud Solutions | Mustex Digital",
+    title: "Cloud Solutions | Mustex Digitals",
     absoluteTitle: true,
     description:
-      "Modern cloud solutions from Mustex Digital — secure infrastructure, scalable deployments, and reliable platforms for growing digital products.",
+      "Modern cloud solutions from Mustex Digitals — secure infrastructure, scalable deployments, and reliable platforms for growing digital products.",
     keywords: [...sharedKeywords, "Cloud Solutions", "Cloud Engineering"],
     path: "/services/cloud-solutions",
     category: "Services",
@@ -391,10 +392,10 @@ export const seoPages = {
     ],
   },
   uiUxDesign: {
-    title: "UI/UX Design Services | Mustex Digital",
+    title: "UI/UX Design Services | Mustex Digitals",
     absoluteTitle: true,
     description:
-      "UI/UX design services from Mustex Digital — clear product interfaces, design systems, and user journeys that convert without clutter.",
+      "UI/UX design services from Mustex Digitals — clear product interfaces, design systems, and user journeys that convert without clutter.",
     keywords: [...sharedKeywords, "UI UX Design Services", "Product Design"],
     path: "/services/ui-ux-design",
     category: "Services",
@@ -406,10 +407,10 @@ export const seoPages = {
     ],
   },
   customSoftware: {
-    title: "Custom Software Development | Mustex Digital",
+    title: "Custom Software Development | Mustex Digitals",
     absoluteTitle: true,
     description:
-      "Custom software development by Mustex Digital — tailored platforms, ERP/CRM workflows, and digital systems built around your business.",
+      "Custom software development by Mustex Digitals — tailored platforms, ERP/CRM workflows, and digital systems built around your business.",
     keywords: [
       ...sharedKeywords,
       "Custom Software Development",

@@ -14,7 +14,7 @@ export const startProjectContent = {
   success: {
     title: "Project Inquiry Submitted",
     description:
-      "Thank you for contacting Mustex Digital.\n\nOur team will review your requirements and contact you within 24 hours.",
+      "Thank you for contacting Mustex Digitals.\n\nOur team will review your requirements and contact you within 24 hours.",
     homeLabel: "Return Home",
     homeHref: "/",
     contactLabel: "Contact Us",

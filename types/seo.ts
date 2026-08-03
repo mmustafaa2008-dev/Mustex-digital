@@ -74,6 +74,7 @@ export type SeoSiteConfig = {
     dark: string;
   };
   defaultOgImage: string;
+  ogImageDimensions?: { width: number; height: number };
   twitterHandle?: string;
   authors: Array<{ name: string; url?: string }>;
   creator: string;

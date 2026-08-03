@@ -17,7 +17,7 @@ export const social = {
     {
       id: "linkedin",
       label: "LinkedIn",
-      href: "https://linkedin.com",
+      href: "https://www.linkedin.com/company/mustex-digital/?viewAsMember=true",
       icon: Share2,
     },
     {

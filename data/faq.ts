@@ -7,12 +7,12 @@ export const faq = {
   section: {
     title: "Frequently Asked Questions",
     description:
-      "Everything you need to know before starting your next digital project with Mustex Digital.",
+      "Everything you need to know before starting your next digital project with Mustex Digitals.",
   },
   items: [
     {
       id: "services",
-      question: "What services does Mustex Digital provide?",
+      question: "What services does Mustex Digitals provide?",
       answer:
         "We build modern web applications, mobile apps, AI-powered solutions, business websites, e-commerce platforms, UI/UX designs, CMS solutions, and provide long-term maintenance and digital support.",
       category: "general",

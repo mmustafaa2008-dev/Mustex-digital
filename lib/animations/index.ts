@@ -1,5 +1,5 @@
 /**
- * Centralized animation system for Mustex Digital.
+ * Centralized animation system for Mustex Digitals.
  * Prefer importing from `@/lib/animations` for variants, transitions, and LazyMotion `m`.
  */
 

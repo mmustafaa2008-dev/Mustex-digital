@@ -114,7 +114,7 @@ export const commitment = {
   cta: {
     title: "Committed to Building Software That Scales.",
     description:
-      "At Mustex Digital, we believe successful software is built through collaboration, innovation, and a relentless focus on quality.",
+      "At Mustex Digitals, we believe successful software is built through collaboration, innovation, and a relentless focus on quality.",
     primary: {
       label: "Let's Build Together",
       href: "/contact",

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { brand } from "@/data/brand";
 import { seoPages, seoSite } from "@/data/seo";
 import type { SeoPageConfig, SeoRouteKey } from "@/types/seo";
 
@@ -46,8 +47,8 @@ export function createPageMetadata(
     options.images ?? page.openGraph?.images ?? [imagePath];
   const ogImages = imageSources.map((src: string) => ({
     url: absoluteAssetUrl(src),
-    width: 1200,
-    height: 630,
+    width: seoSite.ogImageDimensions?.width ?? 1200,
+    height: seoSite.ogImageDimensions?.height ?? 630,
     alt: title,
   }));
 
@@ -109,6 +110,9 @@ export function createPageMetadata(
 export function createRootMetadata(): Metadata {
   const home = seoPages.home;
   const image = absoluteAssetUrl(seoSite.defaultOgImage);
+  const ogWidth = seoSite.ogImageDimensions?.width ?? 1200;
+  const ogHeight = seoSite.ogImageDimensions?.height ?? 630;
+  const logo = brand.logoSrc;
 
   return {
     metadataBase: new URL(seoSite.url),
@@ -144,8 +148,8 @@ export function createRootMetadata(): Metadata {
       images: [
         {
           url: image,
-          width: 1200,
-          height: 630,
+          width: ogWidth,
+          height: ogHeight,
           alt: seoSite.name,
         },
       ],
@@ -159,23 +163,9 @@ export function createRootMetadata(): Metadata {
       site: seoSite.twitterHandle,
     },
     icons: {
-      icon: [
-        { url: "/favicon.ico", sizes: "any" },
-        { url: "/icons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-        { url: "/icons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-        {
-          url: "/icons/android-chrome-192x192.png",
-          sizes: "192x192",
-          type: "image/png",
-        },
-        {
-          url: "/icons/android-chrome-512x512.png",
-          sizes: "512x512",
-          type: "image/png",
-        },
-      ],
-      apple: [{ url: "/icons/apple-touch-icon.png", sizes: "180x180" }],
-      shortcut: ["/favicon.ico"],
+      icon: [{ url: logo, type: "image/png" }],
+      apple: [{ url: logo, type: "image/png" }],
+      shortcut: [logo],
     },
     manifest: "/manifest.webmanifest",
     appleWebApp: {

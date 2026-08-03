@@ -1,10 +1,11 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import type { ComponentProps } from "react";
 
 import { brand } from "@/data/brand";
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { uiFocusRing, uiTransition } from "@/lib/ui";
 import { cn } from "@/lib/utils";
 
@@ -23,10 +24,16 @@ export type BrandLockupProps = {
   onClick?: () => void;
 };
 
+const brandMotion = {
+  duration: 0.2,
+  ease: [0.22, 1, 0.36, 1] as const,
+};
+
 const sizeStyles: Record<
   BrandLockupSize,
   {
     icon: number;
+    iconMobile: number;
     gap: string;
     divider: string;
     primary: string;
@@ -35,31 +42,36 @@ const sizeStyles: Record<
   }
 > = {
   sm: {
-    icon: 40,
-    gap: "gap-3",
-    divider: "h-9",
+    icon: brand.logoDisplaySize,
+    iconMobile: brand.logoDisplaySizeMobile,
+    gap: "gap-3.5 sm:gap-4 md:gap-[1.125rem]",
+    divider: "h-8 sm:h-9",
     primary:
-      "text-[0.75rem] font-semibold tracking-[0.2em] sm:text-[0.8125rem] sm:tracking-[0.24em]",
+      "text-[0.8125rem] font-bold tracking-[0.26em] sm:text-[0.875rem] sm:font-extrabold sm:tracking-[0.3em]",
     secondary:
-      "text-[0.5625rem] font-medium tracking-[0.32em] sm:text-[0.625rem] sm:tracking-[0.36em]",
+      "text-[0.5625rem] font-medium tracking-[0.34em] text-[var(--ds-foreground)]/55 sm:text-[0.625rem] sm:tracking-[0.38em]",
     slogan:
-      "hidden text-[0.5rem] font-medium tracking-[0.2em] min-[400px]:block sm:tracking-[0.26em]",
+      "hidden text-[0.5rem] font-medium tracking-[0.2em] text-[var(--ds-foreground)]/45 min-[400px]:block sm:tracking-[0.26em]",
   },
   md: {
-    icon: 44,
-    gap: "gap-3.5",
+    icon: 52,
+    iconMobile: 48,
+    gap: "gap-4 md:gap-5",
     divider: "h-10",
-    primary: "text-[0.9375rem] font-semibold tracking-[0.28em]",
-    secondary: "text-[0.75rem] font-medium tracking-[0.4em]",
-    slogan: "text-[0.5625rem] font-medium tracking-[0.3em]",
+    primary: "text-[0.9375rem] font-extrabold tracking-[0.3em]",
+    secondary:
+      "text-[0.6875rem] font-medium tracking-[0.4em] text-[var(--ds-foreground)]/55",
+    slogan: "text-[0.5625rem] font-medium tracking-[0.3em] text-[var(--ds-foreground)]/45",
   },
   lg: {
     icon: 64,
-    gap: "gap-5",
+    iconMobile: 56,
+    gap: "gap-5 md:gap-6",
     divider: "h-14",
-    primary: "text-xl font-semibold tracking-[0.32em] md:text-2xl",
-    secondary: "text-sm font-medium tracking-[0.42em] md:text-base",
-    slogan: "text-[0.6875rem] font-medium tracking-[0.34em] md:text-xs",
+    primary: "text-xl font-extrabold tracking-[0.34em] md:text-2xl md:tracking-[0.36em]",
+    secondary:
+      "text-sm font-medium tracking-[0.44em] text-[var(--ds-foreground)]/55 md:text-base",
+    slogan: "text-[0.6875rem] font-medium tracking-[0.34em] text-[var(--ds-foreground)]/45 md:text-xs",
   },
 };
 
@@ -105,7 +117,7 @@ function SloganText({
 }
 
 /**
- * Official Mustex Digital brand lockup — uploaded mark + enterprise wordmark.
+ * Official Mustex Digitals brand lockup — transparent mark + enterprise wordmark.
  */
 function BrandLockup({
   className,
@@ -117,34 +129,62 @@ function BrandLockup({
   onClick,
 }: BrandLockupProps) {
   const styles = sizeStyles[size];
+  const reduceMotion = usePrefersReducedMotion();
   const ariaLabel = `${brand.name} — ${brand.slogan}`;
+  const logoAssetSize = styles.icon * 2;
 
   const content = (
     <>
-      <span
-        className="relative shrink-0 overflow-hidden rounded-[var(--ds-radius-sm)] bg-black"
-        style={{ width: styles.icon, height: styles.icon }}
+      <motion.span
+        className={cn(
+          "relative flex shrink-0 items-center justify-center",
+          size === "sm" && "h-12 w-12 sm:h-[3.375rem] sm:w-[3.375rem]",
+        )}
+        style={
+          size === "sm"
+            ? undefined
+            : { width: styles.icon, height: styles.icon }
+        }
+        initial={reduceMotion ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: brandMotion.duration, ease: brandMotion.ease }}
+        whileHover={reduceMotion ? undefined : { scale: 1.04 }}
       >
         <Image
           src={brand.logoSrc}
           alt=""
-          width={styles.icon}
-          height={styles.icon}
+          width={logoAssetSize}
+          height={logoAssetSize}
           priority={priority}
-          className="size-full object-cover"
+          sizes={
+            size === "sm"
+              ? `(max-width: 639px) ${styles.iconMobile}px, ${styles.icon}px`
+              : `${styles.icon}px`
+          }
+          quality={95}
+          className="size-full object-contain"
         />
-      </span>
+      </motion.span>
 
       {markOnly ? null : (
         <>
           <span
             aria-hidden="true"
             className={cn(
-              "w-px shrink-0 bg-[var(--ds-border)]",
+              "w-px shrink-0 self-center bg-[var(--ds-foreground)]/20",
               styles.divider,
             )}
           />
-          <span className="flex min-w-0 flex-col justify-center gap-0.5">
+          <motion.span
+            className="flex min-w-0 flex-col justify-center gap-0.5"
+            initial={reduceMotion ? false : { opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: brandMotion.duration,
+              ease: brandMotion.ease,
+              delay: reduceMotion ? 0 : 0.06,
+            }}
+          >
             <span className="flex flex-col leading-none">
               {accentedWord(
                 brand.wordmark.primary,
@@ -154,12 +194,7 @@ function BrandLockup({
                   styles.primary,
                 ),
               )}
-              <span
-                className={cn(
-                  "mt-0.5 uppercase text-[var(--ds-foreground)]",
-                  styles.secondary,
-                )}
-              >
+              <span className={cn("mt-0.5 uppercase", styles.secondary)}>
                 {brand.wordmark.secondary}
               </span>
             </span>
@@ -167,20 +202,17 @@ function BrandLockup({
               <SloganText
                 slogan={brand.slogan.toUpperCase()}
                 accent={brand.sloganAccent.toUpperCase()}
-                className={cn(
-                  "mt-1 uppercase text-[var(--ds-foreground)]",
-                  styles.slogan,
-                )}
+                className={cn("mt-1 uppercase", styles.slogan)}
               />
             ) : null}
-          </span>
+          </motion.span>
         </>
       )}
     </>
   );
 
   const sharedClassName = cn(
-    "inline-flex items-center",
+    "group/brand inline-flex items-center py-0.5",
     styles.gap,
     uiTransition,
     uiFocusRing,
@@ -214,28 +246,4 @@ function BrandLockup({
   );
 }
 
-export type BrandMarkProps = Omit<
-  ComponentProps<typeof Image>,
-  "src" | "alt"
-> & {
-  className?: string;
-  size?: number;
-};
-
-/**
- * Icon-only mark for favicons, compact UI, and decorative use.
- */
-function BrandMark({ className, size = 32, ...props }: BrandMarkProps) {
-  return (
-    <Image
-      src={brand.logoSrc}
-      alt={brand.logoAlt}
-      width={size}
-      height={size}
-      className={cn("object-cover", className)}
-      {...props}
-    />
-  );
-}
-
-export { BrandLockup, BrandMark };
+export { BrandLockup };

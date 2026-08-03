@@ -7,7 +7,7 @@ export const conversion = {
   section: {
     title: "Ready to Build Something",
     description:
-      "Whether you're launching a startup, modernizing your business, or building enterprise software, Mustex Digital is ready to transform your ideas into scalable digital solutions.",
+      "Whether you're launching a startup, modernizing your business, or building enterprise software, Mustex Digitals is ready to transform your ideas into scalable digital solutions.",
   },
   titleAccent: "Exceptional?",
   primaryCta: {

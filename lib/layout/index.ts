@@ -1,5 +1,5 @@
 /**
- * Mustex Digital responsive layout system — utilities & class resolvers.
+ * Mustex Digitals responsive layout system — utilities & class resolvers.
  */
 
 export {

@@ -1,5 +1,5 @@
 /**
- * Semantic color tokens — Mustex Digital
+ * Semantic color tokens — Mustex Digitals
  *
  * Naming: {role}.{variant}
  * - DEFAULT  = fill / brand action surface

@@ -1,5 +1,5 @@
 /**
- * Mustex Digital design tokens — single source of truth.
+ * Mustex Digitals design tokens — single source of truth.
  * CSS mirrors live in styles/tokens.css for Tailwind / runtime styling.
  *
  * Naming conventions:

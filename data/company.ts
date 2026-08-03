@@ -21,25 +21,25 @@ import type { CompanyContent } from "@/types/content";
  * Company identity, mission, values, and contact — single source of truth.
  */
 export const company = {
-  name: "Mustex Digital",
-  legalName: "Mustex Digital",
-  tagline: "Building Software That Scales",
+  name: "Mustex Digitals",
+  legalName: "Mustex Digitals",
+  tagline: "We build brands. We grow businesses.",
   description:
-    "Mustex Digital builds scalable software, modern websites, mobile applications, AI solutions, and digital experiences that help businesses grow.",
+    "Mustex Digitals builds scalable software, modern websites, mobile applications, AI solutions, and digital experiences that help businesses grow.",
   shortDescription:
     "Engineering modern software for ambitious businesses worldwide.",
-  url: "https://mustex.com",
+  url: "https://mustexdigitals.com",
   contact: {
-    email: "mustexdigital@gmail.com",
-    website: "https://mustex.com",
-    websiteLabel: "mustex.com",
+    email: "mustexdigitals@gmail.com",
+    website: "https://mustexdigitals.com",
+    websiteLabel: "mustexdigitals.com",
     address: "Global · Remote-first",
     hours: "Mon–Fri, 9:00–18:00",
   },
   hero: {
-    headline: "Building Software That Scales.",
+    headline: "We build brands. We grow businesses.",
     description:
-      "Mustex Digital partners with global enterprises to architect and deploy resilient digital products through world-class software engineering and AI-driven innovation.",
+      "Mustex Digitals partners with global enterprises to architect and deploy resilient digital products through world-class software engineering and AI-driven innovation.",
     primaryCta: {
       label: "Start Your Project",
       href: "/start-project",
@@ -71,10 +71,10 @@ export const company = {
   about: {
     title: "Who We Are",
     headline: "Engineering modern software for ambitious businesses worldwide.",
-    body: "At Mustex Digital, we specialize in building intelligent, scalable products that define the future of technology. Our approach merges technical excellence with premium innovation, creating high-end, specialized software solutions for sophisticated architectures.",
+    body: "At Mustex Digitals, we specialize in building intelligent, scalable products that define the future of technology. Our approach merges technical excellence with premium innovation, creating high-end, specialized software solutions for sophisticated architectures.",
     valuesTitle: "Our Core Values",
     image: {
-      alt: "Abstract composition of glowing glass panels and geometric systems representing Mustex Digital engineering architecture",
+      alt: "Abstract composition of glowing glass panels and geometric systems representing Mustex Digitals engineering architecture",
     },
   },
   mission: {
@@ -214,6 +214,6 @@ export const company = {
       value: "Long-Term",
     },
   ],
-  copyrightTemplate: "© {year} Mustex Digital",
-  credit: "Designed & Engineered by Mustex Digital",
+  copyrightTemplate: "© {year} Mustex Digitals",
+  credit: "Designed & Engineered by Mustex Digitals",
 } as const satisfies CompanyContent;

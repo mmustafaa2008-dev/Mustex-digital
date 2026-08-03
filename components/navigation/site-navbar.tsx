@@ -15,7 +15,7 @@ export type SiteNavbarProps = {
 };
 
 /**
- * Mustex Digital enterprise navbar — wired to `navigation.ts`.
+ * Mustex Digitals enterprise navbar — wired to `navigation.ts`.
  */
 function SiteNavbarComponent({
   className,

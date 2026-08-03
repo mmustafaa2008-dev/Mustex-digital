@@ -33,7 +33,7 @@ function resolveMegaServices() {
  * Primary site navigation — App Router paths only (no hash links).
  */
 export const navigation = {
-  brandLabel: "Mustex Digital",
+  brandLabel: "Mustex Digitals",
   items: [
     {
       label: "Home",
@@ -74,7 +74,7 @@ export const navigation = {
     href: "/work",
   },
   labels: {
-    searchPlaceholder: "Search Mustex Digital",
+    searchPlaceholder: "Search Mustex Digitals",
     searchAriaLabel: "Search",
     openSearchLabel: "Open search",
     openMenuLabel: "Open menu",

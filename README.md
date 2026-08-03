@@ -1,4 +1,4 @@
-# 🚀 Mustex Digital
+# 🚀 Mustex Digitals
 
 A premium software agency website built with **Next.js 15**, **TypeScript**, and **Tailwind CSS**. Designed to showcase modern web development services, portfolio, and an enterprise-grade client inquiry experience.
 
@@ -6,7 +6,7 @@ A premium software agency website built with **Next.js 15**, **TypeScript**, and
 
 ## 🌐 Overview
 
-Mustex Digital is a modern software agency website focused on providing high-quality digital solutions. The website is fully responsive, optimized for SEO and performance, and includes a professional multi-step project inquiry system.
+Mustex Digitals is a modern software agency website focused on providing high-quality digital solutions. The website is fully responsive, optimized for SEO and performance, and includes a professional multi-step project inquiry system.
 
 ---
 
@@ -144,7 +144,7 @@ Create a `.env.local` file:
 ```env
 RESEND_API_KEY=your_resend_api_key
 
-FROM_EMAIL=Mustex Digital <your_verified_email>
+FROM_EMAIL=Mustex Digitals <your_verified_email>
 
 TO_EMAIL=your_business_email
 ```
@@ -179,7 +179,7 @@ TO_EMAIL=your_business_email
 
 ## 📬 Contact
 
-**Mustex Digital**
+**Mustex Digitals**
 
 Helping businesses build modern digital products with scalable software solutions.
 

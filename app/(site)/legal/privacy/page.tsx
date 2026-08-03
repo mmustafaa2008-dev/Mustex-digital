@@ -12,7 +12,7 @@ export default function PrivacyPage() {
       <PageJsonLd routeKey="privacy" />
       <MarketingPage
         title="Privacy Policy"
-        description="How Mustex Digital collects, uses, and protects information when you engage with our website and services."
+        description="How Mustex Digitals collects, uses, and protects information when you engage with our website and services."
         primaryCta={{ label: "Contact Us", href: "/contact" }}
       >
         <div className="mx-auto max-w-3xl space-y-4 text-sm leading-[var(--leading-body)] text-[var(--ds-foreground-muted)]">
