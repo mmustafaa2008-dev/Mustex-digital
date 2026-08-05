@@ -104,10 +104,6 @@ export const gutterClassName = {
 
 export type Gutter = keyof typeof gutterClassName;
 
-export function resolveGapClass(space: LayoutSpace = "md"): string {
-  return gapClassName[space];
-}
-
 export function resolveStackClass(space: LayoutSpace = "md"): string {
   return stackClassName[space];
 }

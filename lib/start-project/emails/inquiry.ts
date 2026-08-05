@@ -25,7 +25,7 @@ function row(label: string, value: string) {
 /** Internal notification email — Mustex inbox. */
 export function buildInquiryEmail({ values, submittedAt }: InquiryEmailInput) {
   const labels = getStartProjectLabels(values);
-  const subject = `New project inquiry: ${values.projectName}`;
+  const subject = `New Project Inquiry - ${values.fullName}`;
 
   const html = `
 <!DOCTYPE html>
@@ -51,17 +51,17 @@ export function buildInquiryEmail({ values, submittedAt }: InquiryEmailInput) {
             <tr>
               <td style="padding:24px 28px 8px;">
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                  ${row("Project Name", escapeHtml(values.projectName))}
-                  ${row("Service", escapeHtml(labels.service))}
-                  ${row("Budget", escapeHtml(labels.budget))}
-                  ${row("Timeline", escapeHtml(labels.timeline))}
-                  ${row("Description", escapeHtmlWithBreaks(values.projectDescription))}
-                  ${row("Name", escapeHtml(values.fullName))}
-                  ${row("Company", escapeHtml(values.company))}
+                  ${row("Full Name", escapeHtml(values.fullName))}
                   ${row("Email", `<a href="mailto:${escapeHtml(values.email)}" style="color:#60a5fa;text-decoration:none;">${escapeHtml(values.email)}</a>`)}
                   ${row("Phone", escapeHtml(values.phone))}
                   ${row("Country", escapeHtml(values.country))}
-                  ${row("Preferred Contact", escapeHtml(labels.preferredContactMethod))}
+                  ${row("Preferred Contact Method", escapeHtml(labels.preferredContactMethod))}
+                  ${row("Project Type", escapeHtml(labels.service))}
+                  ${row("Budget", escapeHtml(labels.budget))}
+                  ${row("Timeline", escapeHtml(labels.timeline))}
+                  ${row("Project Name", escapeHtml(values.projectName))}
+                  ${row("Company", escapeHtml(values.company))}
+                  ${row("Message", escapeHtmlWithBreaks(values.projectDescription))}
                 </table>
               </td>
             </tr>
@@ -81,19 +81,20 @@ export function buildInquiryEmail({ values, submittedAt }: InquiryEmailInput) {
   `.trim();
 
   const text = [
-    `New project inquiry — ${company.name}`,
+    `New Project Inquiry — ${company.name}`,
     "",
-    `Project Name: ${values.projectName}`,
-    `Service: ${labels.service}`,
-    `Budget: ${labels.budget}`,
-    `Timeline: ${labels.timeline}`,
-    `Description: ${values.projectDescription}`,
-    `Name: ${values.fullName}`,
-    `Company: ${values.company}`,
+    `Full Name: ${values.fullName}`,
     `Email: ${values.email}`,
     `Phone: ${values.phone}`,
     `Country: ${values.country}`,
-    `Preferred Contact: ${labels.preferredContactMethod}`,
+    `Preferred Contact Method: ${labels.preferredContactMethod}`,
+    `Project Type: ${labels.service}`,
+    `Budget: ${labels.budget}`,
+    `Timeline: ${labels.timeline}`,
+    `Project Name: ${values.projectName}`,
+    `Company: ${values.company}`,
+    `Message: ${values.projectDescription}`,
+    "",
     `Submitted: ${submittedAt}`,
   ].join("\n");
 

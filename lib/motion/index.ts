@@ -33,7 +33,7 @@ export {
 export { createStaggerVariants, staggerPresets } from "./stagger";
 export type { StaggerOptions } from "./stagger";
 
-export { buttonHover, cardHover, hoverLift, hoverPresets } from "./hover";
+export { buttonHover, cardHover, hoverLift } from "./hover";
 
 export {
   createFloatingEffect,
@@ -45,12 +45,7 @@ export type { FloatingOptions } from "./floating";
 export { motionPresets } from "./presets";
 export type { MotionPresetName } from "./presets";
 
-export {
-  createParallaxConfig,
-  getParallaxInputRange,
-  getParallaxOutputRange,
-  parallaxPresets,
-} from "./parallax";
+export { createParallaxConfig, parallaxPresets } from "./parallax";
 export type {
   ParallaxConfig,
   ParallaxOptions,

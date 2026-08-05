@@ -1,3 +1,6 @@
+export { ServicePortfolioSection } from "./service-portfolio-section";
+export type { ServicePortfolioSectionProps } from "./service-portfolio-section";
+
 export { AboutSection } from "./about-section";
 export type { AboutSectionProps } from "./about-section";
 
@@ -22,8 +25,8 @@ export type { FaqSectionProps } from "./faq-section";
 export { HeroSection } from "./hero-section";
 export type { HeroSectionProps } from "./hero-section";
 
-export { HeroVisual } from "./hero-visual";
-export type { HeroVisualProps } from "./hero-visual";
+export { HeroRobot } from "./hero-robot";
+export type { HeroRobotProps } from "./hero-robot";
 
 export { IndustriesSection } from "./industries-section";
 export type { IndustriesSectionProps } from "./industries-section";

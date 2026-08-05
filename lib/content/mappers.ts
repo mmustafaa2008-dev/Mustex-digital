@@ -5,6 +5,10 @@ import type { ServiceCardProps } from "@/components/cards/service-card";
 import type { TechnologyBadgeProps } from "@/components/cards/technology-badge";
 import type { SiteFooterViewProps } from "@/components/footer/types";
 import type { NavbarPropsBase } from "@/components/navigation/types";
+import {
+  buildProjectLinks,
+  resolveProjectThumbnail,
+} from "@/lib/projects";
 import type {
   FaqItemContent,
   FooterContent,
@@ -37,13 +41,15 @@ export function toProjectCardProps(
   return {
     title: project.title,
     description: project.description,
-    imageSrc: project.imageSrc,
-    imageAlt: project.imageAlt,
+    imageSrc: resolveProjectThumbnail(project),
+    imageAlt: project.imageAlt ?? `${project.title} preview`,
     category: project.category,
     technologies: [...project.technologies],
     href: project.href,
     ctaLabel: project.ctaLabel,
     meta: project.meta,
+    status: project.status,
+    links: buildProjectLinks(project),
   };
 }
 

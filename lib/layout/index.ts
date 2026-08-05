@@ -16,7 +16,6 @@ export {
   gapYClassName,
   gutterClassName,
   layoutSpace,
-  resolveGapClass,
   resolveStackClass,
   sectionSpaceClassName,
   stackClassName,

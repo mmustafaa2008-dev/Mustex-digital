@@ -1,13 +1,16 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
-import Image from "next/image";
+import { ExternalLink } from "lucide-react";
 
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
+import { buttonVariants } from "@/components/ui/button";
 import { createIconProps } from "@/lib/icons";
 import { motionScale, transitionPresets } from "@/lib/motion";
 import { cn } from "@/lib/utils";
+import type { ProjectLink } from "@/types/content";
+
+import { ProjectPreviewMedia } from "./project-preview-media";
 
 export type ProjectCardProps = {
   title: string;
@@ -19,6 +22,8 @@ export type ProjectCardProps = {
   href?: string;
   ctaLabel?: string;
   meta?: string;
+  status?: "live" | "coming-soon" | "in-development" | "available-on-request";
+  links?: ProjectLink[];
   className?: string;
 };
 
@@ -36,6 +41,49 @@ const projectCardHover = {
   transition: transitionPresets.springSoft,
 } as const;
 
+const statusLabels: Record<
+  NonNullable<ProjectCardProps["status"]>,
+  string
+> = {
+  live: "Live",
+  "coming-soon": "Coming Soon",
+  "in-development": "Currently Working",
+  "available-on-request": "Available Upon Request",
+};
+
+function ProjectActionLink({ link }: { link: ProjectLink }) {
+  const className = cn(
+    buttonVariants({ variant: link.disabled ? "outline" : "outline", size: "sm" }),
+    "relative z-10 w-full justify-center sm:w-auto",
+    link.disabled && "pointer-events-none opacity-60",
+  );
+
+  if (link.disabled) {
+    return (
+      <span aria-disabled="true" className={className}>
+        {link.label}
+      </span>
+    );
+  }
+
+  return (
+    <a
+      href={link.href}
+      target={link.external ? "_blank" : undefined}
+      rel={link.external ? "noopener noreferrer" : undefined}
+      className={className}
+    >
+      {link.label}
+      {link.external ? (
+        <ExternalLink
+          {...createIconProps({ size: "xs", decorative: true })}
+          className="opacity-70"
+        />
+      ) : null}
+    </a>
+  );
+}
+
 /**
  * Portfolio / case-study project card — premium 3D hover + gradient media.
  */
@@ -49,8 +97,16 @@ function ProjectCard({
   href,
   ctaLabel,
   meta,
+  status,
+  links,
   className,
 }: ProjectCardProps) {
+  const actionLinks = links?.length
+    ? links
+    : href && ctaLabel
+      ? [{ label: ctaLabel, href, external: href.startsWith("http") }]
+      : undefined;
+
   return (
     <div
       className="h-full [perspective:1400px]"
@@ -60,7 +116,7 @@ function ProjectCard({
         data-slot="project-card"
         variant="elevated"
         padding="none"
-        interactive={Boolean(href)}
+        interactive
         motionPreset
         style={{ transformStyle: "preserve-3d" }}
         {...projectCardHover}
@@ -73,67 +129,34 @@ function ProjectCard({
           className,
         )}
       >
-        <div className="relative aspect-[16/10] w-full overflow-hidden bg-[var(--ds-surface-sunken)]">
-          {imageSrc ? (
-            <Image
-              src={imageSrc}
-              alt={imageAlt || title}
-              fill
-              className="object-cover transition-transform duration-[var(--duration-slow)] ease-[var(--ease-soft)] group-hover:scale-[1.06] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              loading="lazy"
-            />
-          ) : (
-            <div
-              className="absolute inset-0 bg-[image:var(--gradient-hero-atmosphere)]"
-              aria-hidden="true"
-            />
-          )}
-
-          {/* Gradient overlay */}
-          <div
-            aria-hidden="true"
-            className={cn(
-              "pointer-events-none absolute inset-0",
-              "bg-gradient-to-t from-[var(--ds-background)] via-[var(--ds-background)]/35 to-transparent",
-              "opacity-70 transition-opacity duration-[var(--duration-normal)]",
-              "group-hover:opacity-95",
-            )}
-          />
-          <div
-            aria-hidden="true"
-            className={cn(
-              "pointer-events-none absolute inset-0",
-              "bg-[image:var(--gradient-primary-glow)] opacity-0",
-              "transition-opacity duration-[var(--duration-normal)]",
-              "group-hover:opacity-60",
-            )}
+        <div className="relative">
+          <ProjectPreviewMedia
+            title={title}
+            category={category}
+            imageSrc={imageSrc}
+            imageAlt={imageAlt}
           />
 
-          {category ? (
-            <div className="absolute top-3 left-3 z-10">
+          <div className="absolute top-3 left-3 z-10 flex flex-wrap gap-2">
+            {category ? (
               <Pill size="sm" variant="secondary">
                 {category}
               </Pill>
-            </div>
-          ) : null}
+            ) : null}
+            {status ? (
+              <Pill size="sm" variant="outline">
+                {statusLabels[status]}
+              </Pill>
+            ) : null}
+          </div>
         </div>
 
         <div className="relative z-10 flex flex-1 flex-col gap-3 p-6">
           <div className="flex flex-col gap-1.5">
             <h3 className="text-[length:var(--text-heading-sm)] font-semibold tracking-[var(--tracking-heading)] text-[var(--ds-foreground)]">
-              {href ? (
-                <a
-                  href={href}
-                  className="outline-none after:absolute after:inset-0 focus-visible:ring-2 focus-visible:ring-[var(--ds-border-focus)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ds-focus-ring-offset)]"
-                >
-                  {title}
-                </a>
-              ) : (
-                title
-              )}
+              {title}
             </h3>
-            <p className="text-sm leading-[var(--leading-body)] text-[var(--ds-foreground-muted)]">
+            <p className="line-clamp-3 text-sm leading-[var(--leading-body)] text-[var(--ds-foreground-muted)]">
               {description}
             </p>
           </div>
@@ -160,22 +183,19 @@ function ProjectCard({
             </ul>
           ) : null}
 
-          <div className="mt-auto flex items-center justify-between gap-3 pt-1">
+          <div className="mt-auto flex flex-col gap-3 pt-1">
             {meta ? (
-              <p className="relative z-10 text-xs tracking-[var(--tracking-caption)] text-[var(--ds-foreground-muted)] uppercase">
+              <p className="text-xs tracking-[var(--tracking-caption)] text-[var(--ds-foreground-muted)] uppercase">
                 {meta}
               </p>
-            ) : (
-              <span />
-            )}
-            {href && ctaLabel ? (
-              <span className="relative z-10 inline-flex items-center gap-1.5 text-sm font-medium text-[var(--ds-primary-text)] transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1">
-                {ctaLabel}
-                <ArrowRight
-                  {...createIconProps({ size: "sm", decorative: true })}
-                  className="transition-transform duration-[var(--duration-fast)] group-hover:translate-x-0.5"
-                />
-              </span>
+            ) : null}
+
+            {actionLinks?.length ? (
+              <div className="relative z-10 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+                {actionLinks.map((link) => (
+                  <ProjectActionLink key={link.label} link={link} />
+                ))}
+              </div>
             ) : null}
           </div>
         </div>

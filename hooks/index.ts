@@ -7,6 +7,7 @@ export type {
   UseAnimatedCounterOptions,
 } from "./use-animated-counter";
 export { usePrefersReducedMotion } from "./use-prefers-reduced-motion";
+export { useMediaQuery } from "./use-media-query";
 export { useParallax } from "./use-parallax";
 export type { UseParallaxOptions, UseParallaxResult } from "./use-parallax";
 export { useSmoothScroll } from "./use-smooth-scroll";

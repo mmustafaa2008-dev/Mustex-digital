@@ -37,8 +37,3 @@ export function checkStartProjectRateLimit(key: string): RateLimitResult {
   buckets.set(key, existing);
   return { ok: true, remaining: MAX_REQUESTS - existing.count };
 }
-
-/** Test helper — clear buckets between tests if needed. */
-export function clearStartProjectRateLimit() {
-  buckets.clear();
-}

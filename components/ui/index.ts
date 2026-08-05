@@ -1,9 +1,6 @@
 export { Avatar, avatarVariants } from "./avatar";
 export type { AvatarProps } from "./avatar";
 
-export { Badge, badgeVariants } from "./badge";
-export type { BadgeProps } from "./badge";
-
 export { Button, buttonVariants } from "./button";
 export type { ButtonProps, ButtonVariantProps } from "./button";
 
@@ -20,9 +17,6 @@ export {
   cardVariants,
 } from "./card";
 export type { CardProps } from "./card";
-
-export { Chip, chipVariants } from "./chip";
-export type { ChipProps } from "./chip";
 
 export { Divider, dividerVariants } from "./divider";
 export type { DividerProps } from "./divider";
@@ -66,9 +60,6 @@ export type { SelectOption, SelectProps } from "./select";
 
 export { Textarea, textareaVariants } from "./textarea";
 export type { TextareaProps } from "./textarea";
-
-export { Tooltip, TooltipPrimitive } from "./tooltip";
-export type { TooltipProps } from "./tooltip";
 
 export { SectionSkeleton, Skeleton } from "./skeleton";
 export type { SkeletonProps } from "./skeleton";

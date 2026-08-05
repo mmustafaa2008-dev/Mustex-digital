@@ -15,7 +15,6 @@ export {
 } from "./projects";
 export {
   getAllServiceSlugs,
-  getFeaturedServices,
   getServiceBySlug,
   services,
 } from "./services";

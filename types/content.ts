@@ -138,6 +138,13 @@ export type ServicesContent = {
   };
 };
 
+export type ProjectLink = {
+  label: string;
+  href: string;
+  external?: boolean;
+  disabled?: boolean;
+};
+
 export type ProjectContent = {
   id: ContentId;
   slug: ContentSlug;
@@ -145,12 +152,29 @@ export type ProjectContent = {
   description: string;
   category: string;
   technologies: string[];
-  href: string;
-  ctaLabel: string;
+  href?: string;
+  ctaLabel?: string;
   imageSrc?: string;
   imageAlt?: string;
   featured?: boolean;
   meta?: string;
+  liveUrl?: string;
+  designUrl?: string;
+  dashboardUrl?: string;
+  status?: "live" | "coming-soon" | "in-development" | "available-on-request";
+  links?: ProjectLink[];
+  serviceSlug?: string;
+};
+
+/**
+ * Minimal per-service portfolio: one-line subtitle + project cards only.
+ */
+export type ServicePortfolioContent = {
+  /** One-line subtitle shown under the service title */
+  subtitle: string;
+  /** Eyebrow label above the project grid — defaults to "Projects" */
+  sectionLabel?: string;
+  items: ProjectContent[];
 };
 
 export type ProjectsContent = {

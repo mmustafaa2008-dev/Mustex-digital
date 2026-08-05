@@ -18,8 +18,13 @@ export function Stack({
   as: Comp = "div",
   ...props
 }: StackProps) {
+  // `Comp` is a polymorphic `ElementType`; TypeScript can't resolve JSX
+  // attribute types against that broad a union, so it's narrowed to a
+  // single concrete tag here purely for type-checking. The actual runtime
+  // value of `Comp` (and therefore the rendered tag) is unaffected.
+  const Component = Comp as "div";
   return (
-    <Comp
+    <Component
       data-slot="stack"
       className={cn("flex flex-col", resolveStackClass(space), className)}
       {...props}

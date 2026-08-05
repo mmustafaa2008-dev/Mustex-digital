@@ -1,5 +1,24 @@
 import type { ConversionContent } from "@/types/content";
 
+import { company } from "./company";
+
+const consultationMailSubject = "Free Consultation Request";
+const consultationMailBody = [
+  "Hello Mustex Digitals,",
+  "",
+  "I would like to schedule a free consultation regarding my project.",
+  "",
+  "Name:",
+  "Company:",
+  "Phone:",
+  "Project Details:",
+  "",
+  "Thank you.",
+].join("\n");
+
+/** mailto: link — opens the user's default email client (no Calendly integration yet). */
+const scheduleConsultationHref = `mailto:${company.contact.email}?subject=${encodeURIComponent(consultationMailSubject)}&body=${encodeURIComponent(consultationMailBody)}`;
+
 /**
  * Final conversion CTA — homepage closing section.
  */
@@ -16,7 +35,7 @@ export const conversion = {
   },
   secondaryCta: {
     label: "Schedule a Free Consultation",
-    href: "/contact",
+    href: scheduleConsultationHref,
   },
   trustIndicators: [
     {

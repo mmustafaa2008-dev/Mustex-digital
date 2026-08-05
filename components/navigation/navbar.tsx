@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import type { ReactNode } from "react";
 
 import { Container } from "@/components/layout/container";
@@ -17,9 +18,17 @@ import { cn } from "@/lib/utils";
 import { DesktopNav } from "./desktop-nav";
 import { MobileNav } from "./mobile-nav";
 import { NavCta } from "./nav-cta";
-import { NavSearch } from "./nav-search";
-import { ThemeSwitch } from "./theme-switch";
 import type { NavbarAppearance, NavbarPropsBase, NavItem } from "./types";
+
+// Both flags default to `false` site-wide today — lazy-load so their code
+// never lands in the navbar chunk (shipped on every page) unless a caller
+// actually opts in.
+const NavSearch = dynamic(() =>
+  import("./nav-search").then((mod) => mod.NavSearch),
+);
+const ThemeSwitch = dynamic(() =>
+  import("./theme-switch").then((mod) => mod.ThemeSwitch),
+);
 
 export type NavbarProps = NavbarPropsBase & {
   children?: ReactNode;

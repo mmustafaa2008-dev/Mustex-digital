@@ -59,10 +59,3 @@ export function getIconA11yProps(
     ...(description ? { title: description } : {}),
   };
 }
-
-/**
- * Whether an icon should announce to assistive tech.
- */
-export function isMeaningfulIcon(options: IconA11yOptions): boolean {
-  return Boolean(options.label?.trim()) && options.decorative !== true;
-}

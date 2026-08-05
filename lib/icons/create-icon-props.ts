@@ -64,13 +64,3 @@ export function createIconProps(
     ...a11y,
   };
 }
-
-/**
- * Merge icon-system defaults with caller overrides (caller wins).
- */
-export function mergeIconProps(
-  base: CreateIconPropsOptions,
-  overrides: CreateIconPropsOptions = {},
-): ResolvedIconProps {
-  return createIconProps({ ...base, ...overrides });
-}

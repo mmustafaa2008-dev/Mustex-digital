@@ -49,9 +49,3 @@ export const cardHover: HoverPreset = {
   },
   transition: transitionPresets.springSoft,
 };
-
-export const hoverPresets = {
-  hoverLift,
-  buttonHover,
-  cardHover,
-} as const;

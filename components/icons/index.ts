@@ -9,5 +9,4 @@ export {
   iconSizes,
   iconStates,
   iconStrokes,
-  mergeIconProps,
 } from "@/lib/icons";

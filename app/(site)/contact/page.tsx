@@ -18,7 +18,7 @@ export default function ContactPage() {
         description={`Reach ${company.name} at ${company.contact.email}. Tell us about your product, timeline, and goals.`}
         primaryCta={{
           label: conversion.primaryCta.label,
-          href: `mailto:${company.contact.email}`,
+          href: conversion.primaryCta.href,
         }}
       />
       <ConversionSection hideIntro />

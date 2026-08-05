@@ -204,9 +204,3 @@ export function getServiceBySlug(slug: string) {
 export function getAllServiceSlugs() {
   return services.items.map((service) => service.slug);
 }
-
-export function getFeaturedServices() {
-  return services.items.filter(
-    (service) => "featured" in service && service.featured,
-  );
-}

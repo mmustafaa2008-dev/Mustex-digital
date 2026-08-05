@@ -42,7 +42,7 @@ function MarketingPage({
 
       <Container width="wide" className="relative z-10">
         <header className="mx-auto mb-10 flex max-w-3xl flex-col gap-4 md:mb-14 md:gap-5">
-          <SectionHeading id={headingId} size="xl">
+          <SectionHeading as="h1" id={headingId} size="xl">
             {title}
           </SectionHeading>
           <SectionDescription size="lg">{description}</SectionDescription>

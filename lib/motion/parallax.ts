@@ -52,15 +52,3 @@ export type ParallaxTransformParams = {
   progress: MotionValue<number>;
   config?: ParallaxConfig;
 };
-
-export function getParallaxOutputRange(
-  config: ParallaxConfig = parallaxPresets.default,
-): [number, number] {
-  return config.outputRange;
-}
-
-export function getParallaxInputRange(
-  config: ParallaxConfig = parallaxPresets.default,
-): [number, number] {
-  return config.inputRange;
-}

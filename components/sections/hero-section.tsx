@@ -28,7 +28,7 @@ import {
 import { cn } from "@/lib/utils";
 import type { HeroContent } from "@/types/content";
 
-import { HeroVisual } from "./hero-visual";
+import { HeroRobot } from "./hero-robot";
 
 export type HeroSectionProps = {
   content?: HeroContent;
@@ -288,7 +288,10 @@ function HeroSection({
               viewport={{ once: true, amount: 0.25 }}
               variants={withReducedMotion(fadeUp, prefersReducedMotion)}
             >
-              <HeroVisual ariaLabel={content.visualAriaLabel} />
+              <HeroRobot
+                ariaLabel={content.visualAriaLabel}
+                variant="desktop"
+              />
             </motion.div>
           </div>
         </Grid>
@@ -301,7 +304,7 @@ function HeroSection({
           viewport={{ once: true, amount: 0.2 }}
           variants={withReducedMotion(fadeUp, prefersReducedMotion)}
         >
-          <HeroVisual ariaLabel={content.visualAriaLabel} />
+          <HeroRobot ariaLabel={content.visualAriaLabel} variant="mobile" />
         </motion.div>
       </Container>
     </Section>
