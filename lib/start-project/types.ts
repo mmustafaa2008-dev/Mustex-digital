@@ -10,6 +10,7 @@ export type StartProjectActionErrorCode =
   | "validation"
   | "rate_limit"
   | "config"
+  | "database"
   | "email";
 
 export type StartProjectActionResult =

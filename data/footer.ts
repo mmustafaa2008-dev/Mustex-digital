@@ -61,7 +61,7 @@ export const footer = {
     placeholder: "Enter your email",
     submitLabel: "Subscribe",
     emailLabel: "Email address",
-    successMessage: "Thanks — you’re subscribed.",
+    successMessage: "Thank you for subscribing!",
     errorMessage: "Something went wrong. Please try again.",
   },
   legalLinks: [

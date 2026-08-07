@@ -5,6 +5,7 @@ import { SmoothScrollAnchors } from "@/components/effects/smooth-scroll-anchors"
 import { SiteFooter } from "@/components/footer";
 import { MotionProvider } from "@/components/motion/provider";
 import { SiteNavbar } from "@/components/navigation";
+import { subscribeToNewsletterAction } from "@/lib/newsletter";
 
 /**
  * Shared chrome for all marketing routes — sticky navbar + footer.
@@ -17,7 +18,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
       <div className="relative z-10">
         <SiteNavbar />
         <main id="main-content">{children}</main>
-        <SiteFooter />
+        <SiteFooter onNewsletterSubmit={subscribeToNewsletterAction} />
       </div>
     </MotionProvider>
   );

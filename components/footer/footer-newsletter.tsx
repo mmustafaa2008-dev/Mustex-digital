@@ -38,6 +38,7 @@ function FooterNewsletter({
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle",
   );
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
   const isBanner = layout === "banner";
 
@@ -80,10 +81,25 @@ function FooterNewsletter({
 
             try {
               setStatus("loading");
-              await onSubmit?.(email.trim());
+              const result = await onSubmit?.(email.trim());
+
+              if (result && result.ok === false) {
+                setStatusMessage(result.error || errorMessage);
+                setStatus("error");
+                return;
+              }
+
+              setStatusMessage(
+                result && result.ok && result.alreadySubscribed
+                  ? "You're already subscribed."
+                  : successMessage,
+              );
               setStatus("success");
               setEmail("");
             } catch {
+              // Unexpected client-side failure (e.g. network error reaching
+              // the server action itself, not a handled server-side error).
+              setStatusMessage(errorMessage);
               setStatus("error");
             }
           }}
@@ -104,6 +120,7 @@ function FooterNewsletter({
                 setEmail(event.target.value);
                 if (status === "success" || status === "error") {
                   setStatus("idle");
+                  setStatusMessage(null);
                 }
               }}
               disabled={status === "loading"}
@@ -128,9 +145,9 @@ function FooterNewsletter({
           className="min-h-5 text-xs text-[var(--ds-foreground-muted)]"
         >
           {status === "success"
-            ? successMessage
+            ? statusMessage ?? successMessage
             : status === "error"
-              ? errorMessage
+              ? statusMessage ?? errorMessage
               : null}
         </p>
       </div>

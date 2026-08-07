@@ -24,6 +24,7 @@ export type {
   FooterLink,
   FooterLinkGroup,
   FooterNewsletterConfig,
+  FooterNewsletterSubmitResult,
   FooterSocialLink,
   SiteFooterProps,
   SiteFooterViewProps,

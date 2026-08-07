@@ -28,8 +28,19 @@ export type FooterContactInfo = {
   websiteLabel?: string;
 };
 
+/**
+ * Result of a newsletter submission. Always resolved, never thrown, so
+ * friendly error messages survive Next.js's production error redaction
+ * for Server Actions.
+ */
+export type FooterNewsletterSubmitResult =
+  | { ok: true; alreadySubscribed: boolean }
+  | { ok: false; error: string };
+
 export type FooterNewsletterConfig = FooterNewsletterContent & {
-  onSubmit?: (email: string) => void | Promise<void>;
+  onSubmit?: (
+    email: string,
+  ) => FooterNewsletterSubmitResult | Promise<FooterNewsletterSubmitResult>;
 };
 
 export type FooterCompanyInfo = {
@@ -56,6 +67,6 @@ export type SiteFooterViewProps = {
 export type SiteFooterProps = {
   /** Footer content from `footer.ts` (default). */
   content?: FooterContent;
-  onNewsletterSubmit?: (email: string) => void | Promise<void>;
+  onNewsletterSubmit?: FooterNewsletterConfig["onSubmit"];
   className?: string;
 };

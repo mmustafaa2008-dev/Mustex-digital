@@ -3,6 +3,7 @@
 import { headers } from "next/headers";
 import { Resend } from "resend";
 
+import { insertProjectInquiry } from "./db";
 import { buildAutoReplyEmail } from "./emails/auto-reply";
 import { buildInquiryEmail } from "./emails/inquiry";
 import { getStartProjectEmailEnv } from "./env";
@@ -27,8 +28,9 @@ function getClientKey(headerStore: Headers): string {
 }
 
 /**
- * Submit Start Project inquiry — validates, rate-limits, sends Resend emails.
- * No database. Honeypot failures return a silent success.
+ * Submit Start Project inquiry — validates, rate-limits, saves the inquiry
+ * to Supabase, then sends Resend emails. Honeypot failures return a silent
+ * success without touching the database or sending email.
  */
 export async function submitStartProjectAction(
   input: StartProjectServerInput,
@@ -63,6 +65,16 @@ export async function submitStartProjectAction(
         ok: false,
         code: "rate_limit",
         error: `Too many submissions. Please try again in about ${Math.ceil(rate.retryAfterSeconds / 60)} minutes.`,
+      };
+    }
+
+    const inquiryInsert = await insertProjectInquiry(values);
+    if (!inquiryInsert.ok) {
+      console.error("[start-project] database insert failed", inquiryInsert.error);
+      return {
+        ok: false,
+        code: "database",
+        error: inquiryInsert.error,
       };
     }
 
